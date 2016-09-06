@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Мобильненький</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="stylesheet" href="lib/w3.css"/>
+		<link rel="stylesheet" href="lib/w3-theme-blue.css"/>
+		<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css"/>
+		<style>
+			#mySidenav { display:none; z-index:100; width:80%; }
+			.w3-circle { width:100%; height:100%;}
+		</style>
+		<script>
+		function w3_open() {
+			document.getElementById("mySidenav").style.display = "block";
+		}
+
+		function w3_close() {
+			document.getElementById("mySidenav").style.display = "none";
+		}
+		</script>
+		<script src="lib/angularjs/angular.min.js"></script>
+		<script src='mobile.js'></script>
+	</head>
+	<body ng-app='myApp' ng-controller='myCtrl'>
+		<nav id="mySidenav" class="w3-sidenav w3-top w3-card-2 w3-white">
+			<div class="w3-theme">
+			  <a href="javascript:void(0)" onclick="w3_close()"
+			  class="w3-closenav w3-right w3-xlarge">&times;</a>
+				<div class="w3-padding-large w3-center">
+				  <img class="w3-circle" src="img_avatar.jpg" alt="avatar">
+			   </div>
+			  </div>
+			<br>
+			<a href="#">Home</a> 
+			<a href="#">Friends</a> 
+			<a href="#">Messages</a> 
+		</nav>
+
+		<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">
+		  <h2><i class="fa fa-bars" onClick="w3_open()"></i> {{title}}:</h2>
+		</header>
+		
+		<div class="w3-row w3-card w3-margin" ng-repeat="x in persons">
+		  <div class="w3-col s3">
+			<img class="w3-circle" src="img_avatar.jpg">
+		  </div>
+		  <div class="w3-col s9 w3-container">
+			<h3 class="w3-text-theme">Андрюха Кумыч</h3>
+			  <p>{{x["firstName"]}} {{x}}</p>
+		  </div>
+		</div>
+		
+		<div class="w3-container">
+			<h4 class='w3-text-theme w3-panel'>Отправка данных</h4>
+			<textarea ng-model='some_text' class="w3-input w3-border" placeholder="Напишите здесь что-нибудь"></textarea>
+			<input type='button' ng-click='sendData()' class='w3-btn-block w3-theme' value='Отправить'/>
+			<div class='w3-panel'>{{resultMsg}}</div>
+		</div>
+		
+		<footer class="w3-container w3-theme w3-margin-top">
+		  <h5>Footer</h5>
+		</footer>
+	</body>
+</html>
