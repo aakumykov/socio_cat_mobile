@@ -29,7 +29,7 @@
 			  <a href="javascript:void(0)" onclick="w3_close()"
 			  class="w3-closenav w3-right w3-xlarge">&times;</a>
 				<div class="w3-padding-large w3-center">
-				  <img class="w3-circle" src="img_avatar.jpg" alt="avatar">
+				  <!--<img class="w3-circle" src="img_avatar.jpg" alt="avatar">-->
 			   </div>
 			  </div>
 			<br>
@@ -39,13 +39,16 @@
 		</nav>
 
 		<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">
-		  <h2><i class="fa fa-bars" onClick="w3_open()"></i> {{title}}:</h2>
+		  <h2>
+		  	<i class="fa fa-bars" onClick="w3_open()"></i>
+		  	{{title}}:
+		  </h2>
 		</header>
 		
 		<!-- список (начало) -->
 		<div class="w3-row w3-card w3-margin" ng-repeat="x in list">
 		  <div class="w3-col s3">
-			<img class="w3-circle" src="img_avatar.jpg" alt="..." />
+			<!--<img class="w3-circle" src="img_avatar.jpg" alt="..." />-->
 		  </div>
 		  <div class="w3-col s9 w3-container">
 			<h3 class="w3-text-theme">{{x.title}}</h3>
@@ -55,8 +58,9 @@
 		<!-- список (конец) -->
 		
 		<div class="w3-container">
-			<h4 class='w3-text-theme w3-panel'>Отправка данных</h4>
-			<textarea ng-model='some_text' class="w3-input w3-border" placeholder="Напишите здесь что-нибудь"></textarea>
+			<h4 class='w3-text-theme w3-panel'>Новая карточка</h4>
+			<input ng-model='card_title' class="w3-input w3-border" placeholder='название'/>
+			<textarea ng-model='card_content' class="w3-input w3-border" placeholder="содержимое"></textarea>
 			<input type='button' ng-click='sendData()' class='w3-btn-block w3-theme' value='Отправить'/>
 			<div class='w3-panel'>{{resultMsg}}</div>
 		</div>

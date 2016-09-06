@@ -14,8 +14,16 @@ class API < Grape::API
 			{ item: item.title }
 		end
 
+		params do
+			requires :card_title, type: String
+			requires :card_content, type: String
+		end
 		post '/new' do
-			item = Item.create!( declared(params) )
+			par = declared(params)
+			item = Item.create!(
+				title: par.card_title,
+				content: par.card_content,
+			)
 			{ new_item: item[:id] }
 		end
 
