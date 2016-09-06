@@ -22,13 +22,27 @@ app.controller('myCtrl', function($scope, $http){
         data: request
       }).then(function successCallback(response) {
           $scope.resultMsg = response.status+' ('+response.statusText+') '+response.data.message;
-          $scope.card_title = '';
-          $scope.card_content = '';
+          $scope.card.title = '';
+          $scope.card.content = '';
         }, function errorCallback(response) {
           $scope.resultMsg = response.status+' ('+response.statusText+') '+response.data.error;
       });
 
       $scope.readData();
+  };
+
+  $scope.removeItem = function(id){
+    $http({
+      method: 'DELETE',
+      url: '/items/'+id
+    }).then(
+      function successCallback(response) {
+          $scope.resultMsg = response.status+' ('+response.statusText+') '+response.data.message;
+      },
+      function errorCallback(response) {
+          $scope.resultMsg = response.status+' ('+response.statusText+') '+response.data.error;
+      }
+    );
   };
 
   $scope.readData();

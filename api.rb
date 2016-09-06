@@ -9,10 +9,12 @@ class API < Grape::API
 			Item.all
 		end
 
+
 		get '/:id' do
 			item = Item.find_by(id: params.id)
 			{ item: item.title }
 		end
+
 
 		params do
 			requires :card_title, type: String
@@ -27,10 +29,12 @@ class API < Grape::API
 			{ message: "item id=#{item.id}" }
 		end
 
+
 		get '/:id/edit' do
 			item = Item.find_by(id: params.id)
 			{ edit: item[:title] }
 		end
+
 
 		patch '/:id' do
 			item = Item.find_by(id: params.id)
@@ -38,7 +42,8 @@ class API < Grape::API
 			{ update: item[:id] }
 		end
 
-		delete ':id/delete' do
+
+		delete '/:id' do
 			item = Item.find_by(id: params.id)
 			item.destroy!
 			{ deleted_item: item.id }
