@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<title>Мобильненький</title>
+		<title>Карманный СоцКат</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="stylesheet" href="lib/w3.css"/>
 		<link rel="stylesheet" href="lib/w3-theme-blue.css"/>
@@ -24,43 +24,26 @@
 		<script src='mobile.js'></script>
 	</head>
 	<body ng-app='myApp' ng-controller='myCtrl'>
-		<nav id="mySidenav" class="w3-sidenav w3-top w3-card-2 w3-white">
-			<div class="w3-theme">
-			  <a href="javascript:void(0)" onclick="w3_close()"
-			  class="w3-closenav w3-right w3-xlarge">&times;</a>
-				<div class="w3-padding-large w3-center">
-				  <!--<img class="w3-circle" src="img_avatar.jpg" alt="avatar">-->
-			   </div>
-			  </div>
-			<br>
-			<a href="#">Home</a> 
-			<a href="#">Friends</a> 
-			<a href="#">Messages</a> 
-		</nav>
-
 		<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">
-		  <h2>
-		  	<i class="fa fa-bars" onClick="w3_open()"></i>
-		  	{{title}}:
-		  </h2>
+		  <h2>Карточки:</h2>
 		</header>
 		
 		<!-- список (начало) -->
 		<div class="w3-row w3-card w3-margin" ng-repeat="x in list">
-		  <div class="w3-col s3">
+			<div class="w3-col s3">
 			<!--<img class="w3-circle" src="img_avatar.jpg" alt="..." />-->
-		  </div>
-		  <div class="w3-col s9 w3-container">
-			<h3 class="w3-text-theme">{{x.title}}</h3>
-			  <p>{{x.content}}</p>
-		  </div>
+			</div>
+			<div class="w3-col s9 w3-container">
+				<h3 class="w3-text-theme">{{x.title}}</h3>
+				<p>{{x.content}}</p>
+			</div>
 		</div>
 		<!-- список (конец) -->
 		
 		<div class="w3-container">
 			<h4 class='w3-text-theme w3-panel'>Новая карточка</h4>
-			<input ng-model='card_title' class="w3-input w3-border" placeholder='название'/>
-			<textarea ng-model='card_content' class="w3-input w3-border" placeholder="содержимое"></textarea>
+			<input ng-model='card.title' class="w3-input w3-border" placeholder='название'/>
+			<textarea ng-model='card.content' class="w3-input w3-border" placeholder="содержимое"></textarea>
 			<input type='button' ng-click='sendData()' class='w3-btn-block w3-theme' value='Отправить'/>
 			<div class='w3-panel'>{{resultMsg}}</div>
 		</div>
