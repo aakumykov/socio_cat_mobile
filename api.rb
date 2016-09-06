@@ -15,8 +15,8 @@ class API < Grape::API
 		end
 
 		params do
-			requires :card_title
-			requires :card_content
+			requires :card_title, type: String
+			requires :card_content, type: String
 		end
 		post '/new' do
 			par = declared(params)
