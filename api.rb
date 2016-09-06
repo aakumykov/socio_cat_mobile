@@ -43,11 +43,10 @@ class API < Grape::API
 		end
 
 
-		get '/:id/delete' do
-			item = Item.find_by(id: params.id)
-			item.destroy!
-			{ deleted_item: item.id }
-			redirect '/'
+		delete '/:id' do
+			#item = Item.find_by(id: params.id)
+			#item.destroy!
+			{ delete: params[:id] }
 		end
 	end
 end
