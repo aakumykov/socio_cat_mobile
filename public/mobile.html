@@ -42,15 +42,17 @@
 		  <h2><i class="fa fa-bars" onClick="w3_open()"></i> {{title}}:</h2>
 		</header>
 		
-		<div class="w3-row w3-card w3-margin" ng-repeat="x in persons">
+		<!-- список (начало) -->
+		<div class="w3-row w3-card w3-margin" ng-repeat="x in list">
 		  <div class="w3-col s3">
-			<img class="w3-circle" src="img_avatar.jpg">
+			<img class="w3-circle" src="img_avatar.jpg" alt="..." />
 		  </div>
 		  <div class="w3-col s9 w3-container">
-			<h3 class="w3-text-theme">Андрюха Кумыч</h3>
-			  <p>{{x["firstName"]}} {{x}}</p>
+			<h3 class="w3-text-theme">{{x.title}}</h3>
+			  <p>{{x.content}}</p>
 		  </div>
 		</div>
+		<!-- список (конец) -->
 		
 		<div class="w3-container">
 			<h4 class='w3-text-theme w3-panel'>Отправка данных</h4>

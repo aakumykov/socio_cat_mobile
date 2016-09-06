@@ -3,8 +3,8 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.title = 'Люди такие здесь';
 	
   $scope.readData = function(){
-    $http.post("processor.php",'{"command":"get"}').then(function(response) {
-      $scope.persons = response.data;
+    $http.get("/items").then(function(response) {
+      $scope.list = response.data;
     });
   };
 
