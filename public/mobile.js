@@ -4,7 +4,6 @@ app.controller('myCtrl', function($scope, $http){
     title: '', 
     content: '' 
   };
-  $scope.deleted_id = null;
 
   $scope.readData = function(){
     $http.get("/items").then(function(response) {
@@ -38,8 +37,9 @@ app.controller('myCtrl', function($scope, $http){
       url: '/items/'+id
     }).then(
       function successCallback(response) {
+          var target_id = '#card'+id;
           $scope.resultMsg = response.status+' ('+response.statusText+') '+response.data.message;
-          $scope.deleted_id = id;
+          angular.element(target_id).remove();
       },
       function errorCallback(response) {
           $scope.resultMsg = response.status+' ('+response.statusText+') '+response.data.error;
