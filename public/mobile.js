@@ -31,33 +31,32 @@ app.controller('myCtrl', function($scope, $http){
 	}
 
 	// основныя функции
-	$scope.readData = function(){
+	$scope.loadList = function(){
 		$http.get("/items").then(function(response) {
 			$scope.list = response.data;
 		});
 	};
 
 	$scope.createItem = function(){
-			var request = {
-				"card_title": $scope.card.title,
-				"card_content": $scope.card.content
-			}
+		var request = {
+			"card_title": $scope.card.title,
+			"card_content": $scope.card.content
+		}
 
-			$http({
-				method: 'POST',
-				url: '/items/new',
-				data: request
-			}).then(
-				function successCallback(response) {
-					$scope.clearForm();
-					$scope.displayResult('success','карточка создана');
-				},
-				function errorCallback(response) {
-					$scope.displayResult('error','ошибка создания карточки');
-				}
-			);
-
-			$scope.readData();
+		$http({
+			method: 'POST',
+			url: '/items/new',
+			data: request
+		}).then(
+			function successCallback(response) {
+				$scope.clearForm();
+				$scope.displayResult('success','карточка создана');
+			},
+			function errorCallback(response) {
+				$scope.displayResult('error','ошибка создания карточки');
+			},
+			$scope.loadList()
+		);
 	};
 
 	$scope.editItem = function(id){
@@ -81,5 +80,5 @@ app.controller('myCtrl', function($scope, $http){
 		);
 	};
 
-	$scope.readData();
+	$scope.loadList();
 });
