@@ -10,11 +10,14 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.displayResult = function(type, text=''){
 		var color = 'black';
 		switch(type){
-			case 'error':
-				color = 'red';
+			case 'info':
+				color = 'yellow';
 				break;
 			case 'success':
 				color = 'green';
+				break;
+			case 'error':
+				color = 'red';
 				break;
 		}
 
@@ -55,6 +58,10 @@ app.controller('myCtrl', function($scope, $http){
 			);
 
 			$scope.readData();
+	};
+
+	$scope.editItem = function(id){
+		$scope.displayResult('info','изменение карточки '+id)
 	};
 
 	$scope.deleteItem = function(id){
