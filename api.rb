@@ -21,8 +21,7 @@ class API < Grape::API
 
 		# просмотр
 		get '/:id' do
-			item = Item.find_by(id: params.id)
-			{ item: item.title }
+			Item.find_by(id: params.id)
 		end
 
 		# создание

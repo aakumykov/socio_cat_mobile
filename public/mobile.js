@@ -9,6 +9,9 @@ app.config(
 		.when('/list', {
 			templateUrl : 'list.html'
 		})
+		.when('/show', {
+			templateUrl : 'show.html'
+		})
 		.when('/add', {
 			templateUrl : 'add.html'
 		})
