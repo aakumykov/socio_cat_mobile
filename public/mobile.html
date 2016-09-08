@@ -26,14 +26,22 @@
 		</script>
 	</head>
 	<body ng-app='myApp' ng-controller='myCtrl'>
-		<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">
-		  <h2 onClick="window.location='#list'" class='pointer_cursor'>Карточки:</h2>
+		
+		<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">		
+			<h3 onClick="window.location='#list'" class='pointer_cursor'>
+				<i class='fa fa-list w3-xlarge'></i>
+				Карточки:
+			</h3>
 		</header>
 		
-		<div class='ng-view'></div>
+		<ng-view></ng-view>
 		
 		<footer class="w3-container w3-theme w3-bottom">
-		  <h6 class='w3-right'>Счастье и радость</h6>
+		  <h6 class='w3-left'>
+		  	<span class='w3-left'>Счастье и радость</span>
+		  	<i class='fa fa-plus w3-xlarge 3-hover-yellow' onClick="window.location='#add'"></i>
+		  </h6>
 		</footer>
+
 	</body>
 </html>
