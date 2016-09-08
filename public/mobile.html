@@ -31,7 +31,11 @@
 		
 		<!-- список (начало) -->
 		<div class="w3-row w3-card w3-margin" ng-repeat="x in list" id="card{{x.id}}">
-			<i class='pointer_cursor fa fa-remove w3-xlarge w3-right' ng-click="deleteItem(x.id)" title="удалить карточку {{x.id}}"></i>
+			<div class='w3-right w3-xlarge w3-text-grey w3-border'>
+				<i class='pointer_cursor fa fa-remove w3-hover-text-red w3-right' ng-click="deleteItem(x.id)" title="удалить карточку {{x.id}}"></i>
+				<i class='pointer_cursor fa fa-edit w3-hover-text-blue w3-right' ng-click="deleteItem(x.id)" title="изменить карточку {{x.id}}"></i>
+			</div>
+			
 			<div class="w3-col s3">
 			<!--<img class="w3-circle" src="img_avatar.jpg" alt="..." />-->
 			</div>
@@ -42,6 +46,7 @@
 		</div>
 		<!-- список (конец) -->
 		
+		<!-- Форма добавления (начало) -->
 		<div class="w3-container">
 			<h4 class='w3-text-theme w3-panel'>Новая карточка</h4>
 			<input ng-model='card.title' class="w3-input w3-border" placeholder='название'/>
@@ -51,6 +56,7 @@
 			<!--<button ng-click="displayResult('success','успех')">успех</button>
 			<button ng-click="displayResult('error','неудача')">неудача</button>-->
 		</div>
+		<!-- Форма добавления (конец) -->
 		
 		<footer class="w3-container w3-theme w3-margin-top">
 		  <h5>Footer</h5>
