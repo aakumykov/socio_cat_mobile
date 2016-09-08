@@ -3,6 +3,15 @@ require_relative 'model'
 class API < Grape::API
 	format :json
 
+	helpers do
+		def result_msg arg
+			{ message: {
+				type: arg.keys.first,
+				text: arg.values.first,
+			}}
+		end
+	end
+
 	resource '/items' do
 
 		# список
@@ -27,7 +36,11 @@ class API < Grape::API
 				title: par[:card_title],
 				content: par[:card_content],
 			)
-			{ message: "item id=#{item.id}" }
+			if item then
+				result_msg success: "создана карточка #{item.id}"
+			else
+				result_msg error: "ошибка создания карточки"
+			end
 		end
 
 		# правка
@@ -48,21 +61,12 @@ class API < Grape::API
 			item = Item.find_by(id: params.id)
 			if (item) then
 				if ( item.destroy ) then
-					{ message: {
-						type: :success,
-						text: "карточка #{params.id} удалена",
-					}}
+					result_msg success: "карточка #{params.id} удалена"
 				else
-					{ message: {
-						type: :error,
-						text: "ошибка удаления карточки #{params.id}",
-					}}
+					result_msg error: "ошибка удаления карточки #{params.id}"
 				end
 			else
-				{ message: {
-					type: :error,
-					text: "карточка #{params.id} не существует",
-				}}
+				result_msg error: "карточки #{params.id} не существует"
 			end
 		end
 	end

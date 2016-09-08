@@ -32,7 +32,7 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 	$scope.deleteItem = function(id){
-		alert('deleteItem '+id);
+		//alert('deleteItem '+id);
 
 		$http({
 			method: 'DELETE',
