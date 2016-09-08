@@ -1,4 +1,24 @@
-var app = angular.module('myApp',[]);
+var app = angular.module('myApp',['ngRoute']);
+
+app.config(
+	function($routeProvider) {
+		$routeProvider
+		.when('/', {
+			templateUrl : 'list.html'
+		})
+		.when('/list', {
+			templateUrl : 'list.html'
+		})
+		.when('/add', {
+			templateUrl : 'add.html'
+		})
+		.otherwise({
+			templateUrl: 'list.html'
+		})
+		;
+	}
+);
+
 app.controller('myCtrl', function($scope, $http){
 	// переменныя
 	$scope.card = { 
@@ -7,6 +27,10 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 	// служебныя функции
+	$scope.goTo = function(uri) {
+		window.location = uri;
+	}
+
 	$scope.displayResult = function(type, text=''){
 		var color = 'black';
 		switch(type){
@@ -55,7 +79,8 @@ app.controller('myCtrl', function($scope, $http){
 			function errorCallback(response) {
 				$scope.displayResult('error','ошибка создания карточки');
 			},
-			$scope.loadList()
+			$scope.loadList(),
+			$scope.goTo('#list')
 		);
 	};
 
