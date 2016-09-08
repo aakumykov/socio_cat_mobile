@@ -32,21 +32,21 @@ app.controller('myCtrl', function($scope, $http){
 	}
 
 	$scope.displayResult = function(type, text=''){
-		var color = 'black';
-		switch(type){
-			case 'info':
-				color = 'yellow';
-				break;
-			case 'success':
-				color = 'green';
-				break;
-			case 'error':
-				color = 'red';
-				break;
-		}
+		// var color = 'black';
+		// switch(type){
+		// 	case 'info':
+		// 		color = 'yellow';
+		// 		break;
+		// 	case 'success':
+		// 		color = 'green';
+		// 		break;
+		// 	case 'error':
+		// 		color = 'red';
+		// 		break;
+		// }
 
-		$scope.resultMsgColor = color;
-		$scope.resultMsgText = text;
+		// $scope.resultMsgColor = color;
+		// $scope.resultMsgText = text;
 	}
 
 	$scope.clearForm = function(){
