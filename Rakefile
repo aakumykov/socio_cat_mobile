@@ -1,6 +1,9 @@
-require_relative 'model'
+require 'active_record'
+require 'yaml'
+require_relative 'config/application.rb'
+require_relative 'model.rb'
 
-task :default => :migrate
+task :default => 'db:migrate'
 
 namespace :db do
 	desc "Run migrations"
