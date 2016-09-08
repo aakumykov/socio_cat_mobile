@@ -46,8 +46,10 @@
 			<h4 class='w3-text-theme w3-panel'>Новая карточка</h4>
 			<input ng-model='card.title' class="w3-input w3-border" placeholder='название'/>
 			<textarea ng-model='card.content' class="w3-input w3-border" placeholder="содержимое"></textarea>
-			<input type='button' ng-click='sendData()' class='w3-btn-block w3-theme' value='Отправить'/>
-			<div class='w3-panel'>{{resultMsg}}</div>
+			<input type='button' ng-click='createItem()' class='w3-btn-block w3-theme' value='Отправить'/>
+			<div class='w3-panel w3-{{resultMsgColor}} w3-padding w3-round w3-center'>{{resultMsgText}}</div>
+			<!--<button ng-click="displayResult('success','успех')">успех</button>
+			<button ng-click="displayResult('error','неудача')">неудача</button>-->
 		</div>
 		
 		<footer class="w3-container w3-theme w3-margin-top">
