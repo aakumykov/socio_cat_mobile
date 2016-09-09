@@ -11,7 +11,7 @@ app.config(
 		.when('/list', {
 			templateUrl : 'list.html'
 		})
-		.when('/show', {
+		.when('/show/:id', {
 			templateUrl : 'show.html'
 		})
 		.when('/add', {
@@ -76,7 +76,7 @@ app.controller('myCtrl', function($scope, $http){
 					content: data.content
 				};
 				//alert("демонстрация карточки "+data.id+NL+data.title+NL+data.content);
-				window.location = '#show?id='+data.id;
+				window.location = '#show/'+data.id;
 			},
 			function errorCallback(response){
 				alert("ошибка показа карточки "+response.data.id);
