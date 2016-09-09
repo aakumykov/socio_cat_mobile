@@ -28,9 +28,9 @@
 	<body ng-app='myApp' ng-controller='myCtrl'>
 		
 		<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">		
-			<h3 ng-click='showList()' class='pointer_cursor'>
-				<i class='fa fa-list w3-xlarge'></i>
-				Карточки:
+			<h3>
+				<i ng-click='showList()' class='pointer_cursor w3-hover-yellow fa fa-list w3-xlarge' title='список карточек'></i>
+				{{pageTitle}}:
 			</h3>
 		</header>
 		
@@ -39,7 +39,7 @@
 		<footer class="w3-container w3-theme">
 		  <h6 class='w3-left'>
 		  	<span class='w3-left'>Счастье и радость</span>
-		  	<i class='fa fa-plus w3-xlarge 3-hover-yellow w3-margin-left pointer_cursor' onClick="window.location='#add'" title='добавить карточку'></i>
+		  	<i class='fa fa-plus w3-xlarge 3-hover-yellow w3-margin-left pointer_cursor' ng-click='newItem()' title='добавить карточку'></i>
 		  </h6>
 		</footer>
 

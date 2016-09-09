@@ -14,8 +14,8 @@ app.config(
 		.when('/show/:id', {
 			templateUrl : 'show.html'
 		})
-		.when('/add', {
-			templateUrl : 'add.html'
+		.when('/new', {
+			templateUrl : 'new.html'
 		})
 		.otherwise({
 			templateUrl: 'list.html'
@@ -26,6 +26,8 @@ app.config(
 
 app.controller('myCtrl', function($scope, $http){
 	// переменныя
+	$scope.pageTitle = '';
+
 	$scope.card = { 
 		title: '', 
 		content: '' 
@@ -67,6 +69,7 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 	$scope.showList = function(){
+		$scope.pageTitle = 'Список карточек';
 		$scope.loadList();
 		window.location = '#list';
 	};
@@ -88,6 +91,11 @@ app.controller('myCtrl', function($scope, $http){
 			}
 		);
 	};
+
+	$scope.newItem = function(){
+		$scope.pageTitle = 'Создание карточки';
+		window.location = '#new';
+	}
 
 	$scope.createItem = function(){
 		var request = {
@@ -113,7 +121,7 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 	$scope.editItem = function(id){
-		$scope.displayResult('info','изменение карточки '+id)
+		$scope.pageTitle = 'Изменение карточки '+id;
 	};
 
 	$scope.deleteItem = function(id){
@@ -133,5 +141,5 @@ app.controller('myCtrl', function($scope, $http){
 		);
 	};
 
-	$scope.loadList();
+	$scope.showList();
 });
