@@ -66,6 +66,11 @@ app.controller('myCtrl', function($scope, $http){
 		});
 	};
 
+	$scope.showList = function(){
+		$scope.loadList();
+		window.location = '#list';
+	};
+
 	$scope.showItem = function(id){
 		$http.get('/items/'+id).then(
 			function successCallback(response){
