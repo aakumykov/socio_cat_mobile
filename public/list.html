@@ -6,9 +6,7 @@
 	</div>
 	
 	<div class="w3-col s9 w3-container">
-		<h3 class="w3-text-theme">
-			<a href='#show?id={{x.id}}'>{{x.title}}</a>
-		</h3>
+		<h3 class="w3-text-theme pointer_cursor" ng-click='showItem(x.id)' title="смотреть карточку {{x.id}}">{{x.title}}</h3>
 		<p>{{x.content}}</p>
 	</div>
 </div>

@@ -1,3 +1,5 @@
+var NL="\n";
+
 var app = angular.module('myApp',['ngRoute']);
 
 app.config(
@@ -62,6 +64,24 @@ app.controller('myCtrl', function($scope, $http){
 		$http.get("/items").then(function(response) {
 			$scope.list = response.data;
 		});
+	};
+
+	$scope.showItem = function(id){
+		$http.get('/items/'+id).then(
+			function successCallback(response){
+				var data = response.data;
+				$scope.current_card = {
+					id: data.id,
+					title: data.title,
+					content: data.content
+				};
+				//alert("демонстрация карточки "+data.id+NL+data.title+NL+data.content);
+				window.location = '#show?id='+data.id;
+			},
+			function errorCallback(response){
+				alert("ошибка показа карточки "+response.data.id);
+			}
+		);
 	};
 
 	$scope.createItem = function(){
