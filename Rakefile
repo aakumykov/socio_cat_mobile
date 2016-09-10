@@ -1,5 +1,6 @@
 require 'active_record'
 require 'yaml'
+require 'fileutils'
 require_relative 'config/application.rb'
 require_relative 'model.rb'
 
@@ -19,5 +20,9 @@ namespace :db do
 			item.content = Faker::Lorem.paragraph
 			item.save
 		end
+	end
+
+	task :drop do
+		FileUtils.remove_file( File.join('db','data.sqlite3'), true )
 	end
 end
