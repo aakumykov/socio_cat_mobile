@@ -103,8 +103,8 @@ app.controller('myCtrl', function($scope, $http){
 
 	$scope.createItem = function(){
 		var request = {
-			"card_title": $scope.card.title,
-			"card_content": $scope.card.content
+			"title": $scope.card.title,
+			"content": $scope.card.content
 		}
 
 		$http({
@@ -141,10 +141,9 @@ app.controller('myCtrl', function($scope, $http){
 		var id = $scope.card.id;
 		
 		var request = {
-			"card_id": $scope.card.id,
-			"card_title": $scope.card.title,
-			"card_content": $scope.card.content
-		}
+			"title": $scope.card.title,
+			"content": $scope.card.content
+		};
 
 		$http.patch('/items/'+id, request).then(function(response){
 			$scope.showList();
