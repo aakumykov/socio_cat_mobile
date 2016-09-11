@@ -49,10 +49,12 @@ class API < Grape::API
 		end
 
 		# обновление
+		params do
+			requires :card_title, type: String
+			requires :card_content, type: String
+		end
 		patch '/:id' do
-			item = Item.find_by(id: params.id)
-			item.update!( declared(params) )
-			{ update: item[:id] }
+			puts "@ PATCH #{params.id}"
 		end
 
 		# удаление

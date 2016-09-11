@@ -17,6 +17,9 @@ app.config(
 		.when('/new', {
 			templateUrl : 'new.html'
 		})
+		.when('/edit', {
+			templateUrl: 'edit.html'
+		})
 		.otherwise({
 			templateUrl: 'list.html'
 		})
@@ -28,7 +31,8 @@ app.controller('myCtrl', function($scope, $http){
 	// переменныя
 	$scope.pageTitle = '';
 
-	$scope.card = { 
+	$scope.card = {
+		id: NaN,
 		title: '', 
 		content: '' 
 	};
@@ -71,7 +75,7 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.showList = function(){
 		$scope.pageTitle = 'Список карточек';
 		$scope.loadList();
-		window.location = '#list';
+		$scope.goTo('#list');
 	};
 
 	$scope.showItem = function(id){
@@ -84,7 +88,7 @@ app.controller('myCtrl', function($scope, $http){
 					content: data.content
 				};
 				//alert("демонстрация карточки "+data.id+NL+data.title+NL+data.content);
-				window.location = '#show/'+data.id;
+				$scope.goTo('#show/'+data.id);
 			},
 			function errorCallback(response){
 				alert("ошибка показа карточки "+response.data.id);
@@ -94,7 +98,7 @@ app.controller('myCtrl', function($scope, $http){
 
 	$scope.newItem = function(){
 		$scope.pageTitle = 'Создание карточки';
-		window.location = '#new';
+		$scope.goTo('#new');
 	}
 
 	$scope.createItem = function(){
@@ -121,7 +125,30 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 	$scope.editItem = function(id){
-		$scope.pageTitle = 'Изменение карточки '+id;
+		$http.get('/items/'+id).then(function(response) {
+			var data = response.data;
+			$scope.card = {
+				id: data.id,
+				title: data.title,
+				content: data.content
+			};
+			$scope.pageTitle = 'Изменение карточки '+id;
+			$scope.goTo('#edit');
+		});
+	};
+
+	$scope.updateItem = function(){
+		var id = $scope.card.id;
+		
+		var request = {
+			"card_id": $scope.card.id,
+			"card_title": $scope.card.title,
+			"card_content": $scope.card.content
+		}
+
+		$http.patch('/items/'+id, request).then(function(response){
+			$scope.showList();
+		});
 	};
 
 	$scope.deleteItem = function(id){
