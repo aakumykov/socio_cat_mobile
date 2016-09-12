@@ -168,5 +168,10 @@ app.controller('myCtrl', function($scope, $http){
 		);
 	};
 
+	$scope.cancelEdit = function(){
+		$scope.goTo('#list');
+		$scope.clearForm();
+	};
+
 	$scope.showList();
 });
