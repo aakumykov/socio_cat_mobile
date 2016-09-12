@@ -146,6 +146,7 @@ app.controller('myCtrl', function($scope, $http){
 		};
 
 		$http.patch('/items/'+id, request).then(function(response){
+			$scope.clearForm();
 			$scope.showList();
 		});
 	};

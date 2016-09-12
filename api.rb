@@ -30,7 +30,12 @@ class API < Grape::API
 			requires :content, type: String
 		end
 		post '/new' do
-			item = Item.create(declared(params))
+			par = declared(params)
+			par = {
+				title: par.title,
+				content: par.content,
+			}
+			item = Item.create(par)
 			if item then
 				result_msg success: "создана карточка #{item.id}"
 			else
@@ -49,13 +54,17 @@ class API < Grape::API
 			requires :title, type: String
 			requires :content, type: String
 		end
-		patch '/' do
+		patch '/:id' do
 			par = declared(params)
-			item = Item.find_by(id: params.id).update(title: par[:title], content: par[:content])
+			par = {
+				title: par.title,
+				content: par.content,
+			}
+			item = Item.find_by(id: params.id).update(par)
 			if item then
-				result_msg success: "изменена карточка #{item.id}"
+				result_msg success: "изменена карточка #{params.id}"
 			else
-				result_msg error: "ошибка изменения карточки #{item.id}"
+				result_msg error: "ошибка изменения карточки #{params.id}"
 			end
 		end
 
