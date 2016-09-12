@@ -65,6 +65,14 @@ app.controller('myCtrl', function($scope, $http){
 		$scope.card.content = '';
 	}
 
+	$scope.showModal = function(id){ 
+		document.getElementById(id).style.display = 'block';
+	}
+
+	$scope.hideModal = function(id){ 
+		document.getElementById(id).style.display = 'none';
+	}
+
 	// основныя функции
 	$scope.loadList = function(){
 		$http.get("/items").then(function(response) {

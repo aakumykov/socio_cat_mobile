@@ -2,8 +2,11 @@
 <div class="w3-row w3-card-2 w3-margin" ng-repeat="x in list" id="card{{x.id}}">
 	
 	<div class='w3-right w3-xlarge w3-text-grey'>
-		<i class='pointer_cursor fa fa-remove w3-hover-text-red w3-right' ng-click="deleteItem(x.id)" title="удалить карточку {{x.id}}"></i>
+	
+		<i class='pointer_cursor fa fa-remove w3-hover-text-red w3-right' ng-click="showModal('deleteModal',{id:{{x.id}}})" title="удалить карточку {{x.id}}"></i>
+		
 		<i class='pointer_cursor fa fa-edit w3-hover-text-orange w3-right' ng-click="editItem(x.id)" title="изменить карточку {{x.id}}"></i>
+	
 	</div>
 	
 	<div class="w3-col s9 w3-container">
