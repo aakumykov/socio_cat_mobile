@@ -180,22 +180,45 @@ app.controller('myCtrl', function($scope, $http){
 		$scope.modal.color = opt.color;
 		$scope.modal.title = opt.title;
 		$scope.modal.content = opt.content;
-		$scope.modal.yesCallback = opt.yesCallback;
-		$scope.modal.noCallback = opt.noCallback;
-		// $scope.modal. = opt.;
-		// $scope.modal. = opt.;
-		// $scope.modal. = opt.;
+		
+		$scope.modal.yesCallback = function(){
+			opt.yesCallback();
+			$scope.hideModal();
+		},
 
-		document.getElementById('modalWindow').style.display = 'block';
+		$scope.modal.noCallback = function(){
+			opt.noCallback();
+			$scope.hideModal();
+		}
+
+		$scope.showModal();
 	};
+	
+	$scope.showModal = function() { 
+		document.getElementById('modalWindow').style.display = 'block'; 
+	}
+
+	$scope.hideModal = function(){
+		$scope.clearModal();
+		document.getElementById('modalWindow').style.display = 'none';
+	}
+
+	$scope.clearModal = function(){ 
+		$scope.modal = {}; 
+	}
+
 
 	$scope.cardDeleteModal = function(id){
 		$scope.createModal({
 			color: 'red',
 			title: 'Удалить карточку '+id+'?',
 			content: '',
-			yesCallback: function() { alert('Да'); },
-			noCallback: function() { alert('Нет'); },
+			yesCallback: function(id) {
+				alert('Вы сказали "Да"');
+			},
+			noCallback: function() {
+				alert('Вы сказали "Нет"');
+			},
 		});
 	};
 

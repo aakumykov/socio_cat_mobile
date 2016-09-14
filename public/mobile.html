@@ -35,10 +35,10 @@
 				<div class='w3-container'>{{ modal.content }}</div>
 				<footer class="w3-row w3-border">
 					<div class="w3-col s6 w3-center">
-						<button class='w3-btn w3-white w3-btn-block' ng-click='hideModal()'>Нѣтъ</button>
+						<button class='w3-btn w3-white w3-btn-block' ng-click='modal.noCallback()'>Нѣтъ</button>
 					</div>
 					<div class="w3-col s6 w3-center">
-						<button class='w3-btn w3-red w3-btn-block' ng-click="deleteItem()">Да</button>
+						<button class='w3-btn w3-red w3-btn-block' ng-click="modal.yesCallback()">Да</button>
 					</div>
 				</footer>
 			</div>
