@@ -174,19 +174,52 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 
+	$scope.modal = {};
+
 	$scope.createModal = function(opt={}){
-		$scope.modal = {};
-		$scope.modal.window = document.getElementById('modalWindow');
-		$scope.modal.window.style.display = 'block';
-		//alert('createModal('+arg+')');
-		$scope.modal.arg = {
-			"yes": opt.yes,
-			"no": opt.no,
+		$scope.modal.color = opt.color;
+		$scope.modal.title = opt.title;
+		$scope.modal.content = opt.content;
+		
+		$scope.modal.yesCallback = function(){
+			opt.yesCallback();
+			$scope.hideModal();
+		},
+
+		$scope.modal.noCallback = function(){
+			opt.noCallback();
+			$scope.hideModal();
 		}
 
-		$scope.modal.yes = function(){
-			alert('yes('+this.arg.yes+')');
-		};
+		$scope.showModal();
+	};
+	
+	$scope.showModal = function() { 
+		document.getElementById('modalWindow').style.display = 'block'; 
+	}
+
+	$scope.hideModal = function(){
+		$scope.clearModal();
+		document.getElementById('modalWindow').style.display = 'none';
+	}
+
+	$scope.clearModal = function(){ 
+		$scope.modal = {}; 
+	}
+
+
+	$scope.cardDeleteModal = function(id){
+		$scope.createModal({
+			color: 'red',
+			title: 'Удалить карточку '+id+'?',
+			content: '',
+			yesCallback: function(id) {
+				alert('Вы сказали "Да"');
+			},
+			noCallback: function() {
+				alert('Вы сказали "Нет"');
+			},
+		});
 	};
 
 
