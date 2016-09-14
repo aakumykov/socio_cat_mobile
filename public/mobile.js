@@ -173,5 +173,34 @@ app.controller('myCtrl', function($scope, $http){
 		$scope.clearForm();
 	};
 
+
+	$scope.modal = {};
+
+	$scope.createModal = function(opt={}){
+		$scope.modal.color = opt.color;
+		$scope.modal.title = opt.title;
+		$scope.modal.content = opt.content;
+		$scope.modal.yesCallback = opt.yesCallback;
+		$scope.modal.noCallback = opt.noCallback;
+		// $scope.modal. = opt.;
+		// $scope.modal. = opt.;
+		// $scope.modal. = opt.;
+
+		document.getElementById('modalWindow').style.display = 'block';
+	};
+
+	$scope.cardDeleteModal = function(id){
+		$scope.createModal({
+			color: 'red',
+			title: 'Удалить карточку '+id+'?',
+			content: '',
+			yesCallback: function() { alert('Да'); },
+			noCallback: function() { alert('Нет'); },
+		});
+	};
+
+
+
+
 	$scope.showList();
 });
