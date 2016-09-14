@@ -177,18 +177,20 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.modal = {};
 
 	$scope.createModal = function(opt={}){
+		$scope.arg = {
+			"yes": opt.arg.yes,
+			"no": opt.arg.no,
+		}
 		$scope.modal.color = opt.color;
 		$scope.modal.title = opt.title;
 		$scope.modal.content = opt.content;
 		
 		$scope.modal.yesCallback = function(){
-			opt.yesCallback();
-			$scope.hideModal();
+			
 		},
 
 		$scope.modal.noCallback = function(){
-			opt.noCallback();
-			$scope.hideModal();
+			
 		}
 
 		$scope.showModal();
@@ -214,10 +216,10 @@ app.controller('myCtrl', function($scope, $http){
 			title: 'Удалить карточку '+id+'?',
 			content: '',
 			yesCallback: function(id) {
-				alert('Вы сказали "Да"');
+				
 			},
 			noCallback: function() {
-				alert('Вы сказали "Нет"');
+				
 			},
 		});
 	};
