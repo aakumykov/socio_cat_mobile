@@ -173,57 +173,60 @@ app.controller('myCtrl', function($scope, $http){
 		$scope.clearForm();
 	};
 
-
-	$scope.modal = {};
-
-	$scope.createModal = function(opt={}){
-		$scope.arg = {
-			"yes": opt.arg.yes,
-			"no": opt.arg.no,
-		}
-		$scope.modal.color = opt.color;
-		$scope.modal.title = opt.title;
-		$scope.modal.content = opt.content;
+	$scope.modal = {
+		yes_arg: NaN,
+		no_arg: NaN,
 		
-		$scope.modal.yesCallback = function(){
-			
+		yes_callback: function(){},
+		no_callback: function(){},
+		
+		yesCallback: function(){ 
+			//alert('scope.modal.yesCallback, '+this.yes_arg);
+			this.yes_callback(this.yes_arg);
+			this.hide();
+		},
+		noCallback: function(){ 
+			//alert('scope.modal.noCallback, '+this.no_arg);
+			this.no_callback(this.no_arg);
+			this.hide();
 		},
 
-		$scope.modal.noCallback = function(){
-			
-		}
-
-		$scope.showModal();
+		show: function(){ document.getElementById('modalWindow').style.display = 'block'; },
+		hide: function(){ document.getElementById('modalWindow').style.display = 'none'; },
 	};
+
 	
-	$scope.showModal = function() { 
-		document.getElementById('modalWindow').style.display = 'block'; 
-	}
 
-	$scope.hideModal = function(){
-		$scope.clearModal();
-		document.getElementById('modalWindow').style.display = 'none';
-	}
+	$scope.createModal = function(opt){
+		//alert('createModal(opt.yes.arg:'+opt.yes.arg+')');
+		
+		var modal = $scope.modal;
+			modal.yes_arg = opt.yes.arg;
+			modal.yes_callback = opt.yes.callback;
+			//modal.no_arg = opt.no.arg;
+			//modal.no_callback = opt.no.callback;
 
-	$scope.clearModal = function(){ 
-		$scope.modal = {}; 
-	}
+		//alert($scope.yesArg+NL+$scope.noArg);
 
+		modal.show();
+	};
 
-	$scope.cardDeleteModal = function(id){
+	// $scope.deleteItemTest = function(id){
+	// 	alert('deleteItemTest('+id+')');
+	// }
+
+	$scope.deleteModal = function(id){
+		//alert('deleteModal('+id+')');
+
 		$scope.createModal({
-			color: 'red',
-			title: 'Удалить карточку '+id+'?',
-			content: '',
-			yesCallback: function(id) {
-				
-			},
-			noCallback: function() {
-				
+			yes: {
+				arg: id,
+				callback: function(){
+					alert('deleteModal callback');
+				}
 			},
 		});
 	};
-
 
 
 
