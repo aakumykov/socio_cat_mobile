@@ -30,9 +30,9 @@
 		<div id="modalWindow" class="w3-modal">
 			<div class="w3-modal-content w3-card-8 w3-animate-right">
 				<header class="w3-container w3-text-{{ modal.color }}"> 
-					<h3>Модальное окно</h3>
+					<h3>{{ modal.title }}</h3>
 				</header>
-				<div class='w3-padding'>пояснение</div>
+				<div class='w3-padding'>{{ modal.description }}</div>
 				<footer class="w3-row w3-border">
 					<div class="w3-col s6 w3-center">
 						<button class='w3-btn w3-white w3-btn-block' ng-click='modal.noCallback()'>Нѣтъ</button>

@@ -174,6 +174,10 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 	$scope.modal = {
+		title: 'Модальное окно',
+		description: '',
+		
+		color: 'black',
 		yes_arg: NaN,
 		no_arg: NaN,
 		
@@ -206,6 +210,10 @@ app.controller('myCtrl', function($scope, $http){
 			//modal.no_arg = opt.no.arg;
 			//modal.no_callback = opt.no.callback;
 
+			modal.title = opt.title;
+			modal.description = opt.description;
+			modal.color = opt.color;
+
 		//alert($scope.yesArg+NL+$scope.noArg);
 
 		modal.show();
@@ -219,10 +227,13 @@ app.controller('myCtrl', function($scope, $http){
 		//alert('deleteModal('+id+')');
 
 		$scope.createModal({
+			title: 'Удалить карточку №'+id+'?',
+			description: '',
+			color: 'red',
 			yes: {
 				arg: id,
 				callback: function(){
-					alert('deleteModal callback');
+					$scope.deleteItem(id);
 				}
 			},
 		});
