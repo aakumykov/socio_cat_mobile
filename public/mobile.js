@@ -173,5 +173,73 @@ app.controller('myCtrl', function($scope, $http){
 		$scope.clearForm();
 	};
 
+	$scope.modal = {
+		title: 'Модальное окно',
+		description: '',
+		
+		color: 'black',
+		yes_arg: NaN,
+		no_arg: NaN,
+		
+		yes_callback: function(){},
+		no_callback: function(){},
+		
+		yesCallback: function(){ 
+			//alert('scope.modal.yesCallback, '+this.yes_arg);
+			this.yes_callback(this.yes_arg);
+			this.hide();
+		},
+		noCallback: function(){ 
+			//alert('scope.modal.noCallback, '+this.no_arg);
+			this.no_callback(this.no_arg);
+			this.hide();
+		},
+
+		show: function(){ document.getElementById('modalWindow').style.display = 'block'; },
+		hide: function(){ document.getElementById('modalWindow').style.display = 'none'; },
+	};
+
+	
+
+	$scope.createModal = function(opt){
+		//alert('createModal(opt.yes.arg:'+opt.yes.arg+')');
+		
+		var modal = $scope.modal;
+			modal.yes_arg = opt.yes.arg;
+			modal.yes_callback = opt.yes.callback;
+			//modal.no_arg = opt.no.arg;
+			//modal.no_callback = opt.no.callback;
+
+			modal.title = opt.title;
+			modal.description = opt.description;
+			modal.color = opt.color;
+
+		//alert($scope.yesArg+NL+$scope.noArg);
+
+		modal.show();
+	};
+
+	// $scope.deleteItemTest = function(id){
+	// 	alert('deleteItemTest('+id+')');
+	// }
+
+	$scope.deleteModal = function(id){
+		//alert('deleteModal('+id+')');
+
+		$scope.createModal({
+			title: 'Удалить карточку №'+id+'?',
+			description: '',
+			color: 'red',
+			yes: {
+				arg: id,
+				callback: function(){
+					$scope.deleteItem(id);
+				}
+			},
+		});
+	};
+
+
+
 	$scope.showList();
 });
