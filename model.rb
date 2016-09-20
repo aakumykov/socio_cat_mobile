@@ -1,4 +1,6 @@
 class Item < ActiveRecord::Base
+	include Paperclip::Glue
+
 	validates :title, presence: true
 	validates :content, presence: true
 

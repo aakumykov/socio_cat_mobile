@@ -1,10 +1,5 @@
 system 'clear'
 
-require 'sinatra'
-require 'grape'
-require 'active_record'
-require 'sqlite3'
-
 require_relative 'config/application.rb'
 
 require_relative 'api.rb'
