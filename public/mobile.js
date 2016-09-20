@@ -126,16 +126,7 @@ app.controller('myCtrl', function($scope, $http){
 		var formData = new FormData();
         	formData.append('title', this.card.title);
         	formData.append('content', this.card.content);
-        	//formData.append('file', file);
-
-        // $http.post(uploadUrl, formData, {
-        //     transformRequest: angular.identity,
-        //     headers: {'Content-Type': undefined}
-        // })
-        // .success(function(){
-        // })
-        // .error(function(){
-        // });
+        	if (this.myFile) formData.append('avatar', this.myFile);
 
 		$http.post('/items/new', formData,{ 
 			transformRequest: angular.identity, 

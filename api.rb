@@ -28,12 +28,18 @@ class API < Grape::API
 		params do
 			requires :title, type: String
 			requires :content, type: String
+			optional :avatar, default: nil
 		end
 		post '/new' do
+			puts '-'*20
+			puts "PARAMS: #{params}"
+			puts '-'*20
+
 			par = declared(params)
 			par = {
 				title: par.title,
 				content: par.content,
+				avatar: par.avatar.tempfile,
 			}
 			item = Item.create(par)
 			if item then
