@@ -12,11 +12,12 @@ app.config(
 			templateUrl : 'list.html'
 		})
 		.when('/show/:id', {
-			templateUrl : 'show.html'
+			templateUrl : 'show.html',
+			headers: 'Max-Age: 0',
 		})
 		.when('/new', {
 			templateUrl: 'new.html',
-			headers: 'Max-Age: 0'
+			headers: 'Max-Age: 0',
 		})
 		.when('/edit', {
 			templateUrl: 'edit.html'
@@ -107,6 +108,7 @@ app.controller('myCtrl', function($scope, $http){
 					content: data.content
 				};
 				//alert("демонстрация карточки "+data.id+NL+data.title+NL+data.content);
+				$scope.pageTitle = 'Карточка «'+data.title+'»';
 				$scope.goTo('#show/'+data.id);
 			},
 			function errorCallback(response){
@@ -226,8 +228,6 @@ app.controller('myCtrl', function($scope, $http){
 		hide: function(){ document.getElementById('modalWindow').style.display = 'none'; },
 	};
 
-	
-
 	$scope.createModal = function(opt){
 		//alert('createModal(opt.yes.arg:'+opt.yes.arg+')');
 		
@@ -245,10 +245,6 @@ app.controller('myCtrl', function($scope, $http){
 
 		modal.show();
 	};
-
-	// $scope.deleteItemTest = function(id){
-	// 	alert('deleteItemTest('+id+')');
-	// }
 
 	$scope.deleteModal = function(id){
 		//alert('deleteModal('+id+')');
