@@ -121,15 +121,23 @@ app.controller('myCtrl', function($scope, $http){
 	}
 
 	$scope.createItem = function(){
-		var request = {
-			"title": $scope.card.title,
-			"content": $scope.card.content
-		}
+		var formData = new FormData();
+        	formData.append('title', this.card.title);
+        	formData.append('content', this.card.content);
+        	//formData.append('file', file);
 
-		$http({
-			method: 'POST',
-			url: '/items/new',
-			data: request
+        // $http.post(uploadUrl, formData, {
+        //     transformRequest: angular.identity,
+        //     headers: {'Content-Type': undefined}
+        // })
+        // .success(function(){
+        // })
+        // .error(function(){
+        // });
+
+		$http.post('/items/new', formData,{ 
+			transformRequest: angular.identity, 
+			headers: {'Content-Type': undefined}
 		}).then(
 			function successCallback(response) {
 				$scope.clearForm();
