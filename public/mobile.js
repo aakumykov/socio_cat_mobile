@@ -13,7 +13,6 @@ app.config(
 		})
 		.when('/show/:id', {
 			templateUrl : 'show.html',
-			headers: 'Max-Age: 0',
 		})
 		.when('/new', {
 			templateUrl: 'new.html',
@@ -102,12 +101,14 @@ app.controller('myCtrl', function($scope, $http){
 		$http.get('/items/'+id).then(
 			function successCallback(response){
 				var data = response.data;
-				$scope.current_card = {
-					id: data.id,
-					title: data.title,
-					content: data.content
-				};
-				//alert("демонстрация карточки "+data.id+NL+data.title+NL+data.content);
+				$scope.current_card = response.data;
+				// $scope.current_card = {
+				// 	id: data.id,
+				// 	title: data.title,
+				// 	content: data.content,
+				// 	avatar: data.avatar,
+				// };
+				
 				$scope.pageTitle = 'Карточка «'+data.title+'»';
 				$scope.goTo('#show/'+data.id);
 			},
