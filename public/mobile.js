@@ -15,7 +15,8 @@ app.config(
 			templateUrl : 'show.html'
 		})
 		.when('/new', {
-			templateUrl : 'new.html'
+			templateUrl: 'new.html',
+			headers: 'Max-Age: 0'
 		})
 		.when('/edit', {
 			templateUrl: 'edit.html'
@@ -27,15 +28,33 @@ app.config(
 	}
 );
 
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
+
 app.controller('myCtrl', function($scope, $http){
 	// переменныя
 	$scope.pageTitle = '';
 
 	$scope.card = {
 		id: NaN,
-		title: '', 
-		content: '' 
+		title: '',
+		content: ''
 	};
+
+	//$scope.myFile = '';
 
 	// служебныя функции
 	$scope.goTo = function(uri) {
