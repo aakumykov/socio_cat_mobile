@@ -25,7 +25,10 @@ class API < Grape::API
 			{
 				title: item.title,
 				content: item.content,
-				avatar: item.avatar(:medium),
+				avatar: {
+					preview: item.avatar(:medium),
+					orig: item.avatar(:original),
+				}
 			}
 		end
 

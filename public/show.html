@@ -8,7 +8,11 @@
 	<div class="w3-col s9 w3-container">
 		<h3 class="w3-text-theme">{{current_card.title}}</h3>
 		<p>{{current_card.content}}</p>
-		<p><img src="{{current_card.avatar}}" alt="картинка: {{current_card.title}}" /></p>
+		<p>
+			<a href='{{current_card.avatar.orig}}' title='оригинальный размер'>
+				<img src="{{current_card.avatar.preview}}" alt="картинка: {{current_card.title}}" />
+			</a>
+		</p>
 	</div>
 
 </div>

@@ -102,13 +102,6 @@ app.controller('myCtrl', function($scope, $http){
 			function successCallback(response){
 				var data = response.data;
 				$scope.current_card = response.data;
-				// $scope.current_card = {
-				// 	id: data.id,
-				// 	title: data.title,
-				// 	content: data.content,
-				// 	avatar: data.avatar,
-				// };
-				
 				$scope.pageTitle = 'Карточка «'+data.title+'»';
 				$scope.goTo('#show/'+data.id);
 			},
