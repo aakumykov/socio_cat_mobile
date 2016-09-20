@@ -18,6 +18,10 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     builder (3.2.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.0.2)
@@ -38,11 +42,21 @@ GEM
     hashie (3.4.4)
     i18n (0.7.0)
     ice_nine (0.11.2)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
+    mimemagic (0.3.2)
     minitest (5.9.0)
     multi_json (1.12.1)
     multi_xml (0.5.5)
     mustermann19 (0.4.4)
       enumerable-lazy
+    paperclip (5.1.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (~> 0.3.0)
     rack (1.6.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -69,6 +83,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   grape
+  paperclip
   sinatra
   sqlite3
 
