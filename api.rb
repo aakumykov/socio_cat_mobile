@@ -41,14 +41,16 @@ class API < Grape::API
 		post '/new' do
 			puts '-'*20
 			puts "PARAMS: #{params}"
+			puts "params.avatar: #{params.avatar}"
 			puts '-'*20
 
 			par = declared(params)
 			par = {
 				title: par.title,
 				content: par.content,
-				avatar: par.avatar.tempfile,
 			}
+			par[:avatar] = par.avatar.tempfile if not par.avatar.nil?
+
 			item = Item.create(par)
 			if item then
 				result_msg success: "создана карточка #{item.id}"
