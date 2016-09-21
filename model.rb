@@ -6,7 +6,7 @@ class Item < ActiveRecord::Base
 
 	has_attached_file(
 		:avatar, 
-		styles: { medium: "300x300>", thumb: "80x80>" }, 
+		styles: { preview: "300x300>", thumbnail: "80x80>" }, 
 		default_style: :medium,
 		use_timestamp: false,
 		default_url: '/missing_image.png',
@@ -17,7 +17,10 @@ class Item < ActiveRecord::Base
 	validates_attachment(:avatar,
 		# 	presence: {message:'не может быть пустым'},
 			content_type: { content_type: /\Aimage\/.*\Z/ },
-			size: { in: 1..1024**2 },
+			size: { 
+				in: 1..1024**2,
+				message: 'превышен допустимый размер изображения'
+			},
 		# 	#if: "'картинка'==self.kind"
 	)
 end

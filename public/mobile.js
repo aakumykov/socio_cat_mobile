@@ -137,8 +137,7 @@ app.controller('myCtrl', function($scope, $http){
 			function errorCallback(response) {
 				$scope.displayResult('error','ошибка создания карточки');
 			},
-			$scope.loadList(),
-			$scope.goTo('#list')
+			$scope.showList()
 		);
 	};
 
@@ -181,6 +180,7 @@ app.controller('myCtrl', function($scope, $http){
 			function successCallback(response) {
 				//angular.element(html_id).remove();
 				$scope.displayResult('success',"карточка "+id+" удалена");
+				$scope.showList();
 			},
 			function errorCallback(response) {
 				$scope.displayResult('success',"ошибка удаления карточки "+id);

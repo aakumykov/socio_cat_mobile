@@ -8,7 +8,14 @@
 	
 	<div class="w3-col s9 w3-container">
 		<h3 class="w3-text-theme pointer_cursor" ng-click='showItem(x.id)' title="смотреть карточку {{x.id}}">{{x.title}}</h3>
-		<p>{{x.content}}</p>
+		
+		<p class='w3-left'>
+			{{x.content}}
+		</p>
+		
+		<p class='w3-right'>
+			<img src="{{x.avatar.thumbnail}}" />
+		</p>
 	</div>
 	
 </div>

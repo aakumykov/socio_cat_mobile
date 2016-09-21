@@ -16,7 +16,18 @@ class API < Grape::API
 
 		# список
 		get '/' do
-			Item.all
+			Item.all.map do |i|
+				{
+					id:i.id, 
+					title:i.title, 
+					content: i.content, 
+					avatar:{
+						thumbnail: i.avatar(:thumbnail),
+						preview: i.avatar(:preview), 
+						orig: i.avatar(:original),
+					}
+				}
+			end
 		end
 
 		# просмотр
@@ -27,7 +38,8 @@ class API < Grape::API
 				title: item.title,
 				content: item.content,
 				avatar: {
-					preview: item.avatar(:medium),
+					thumbnail: item.avatar(:thumbnail),
+					preview: item.avatar(:preview),
 					orig: item.avatar(:original),
 				}
 			}
@@ -55,7 +67,14 @@ class API < Grape::API
 				title: par.title,
 				content: par.content,
 			}
-			data[:avatar] = par.avatar.tempfile if par.avatar # != false
+			if par.avatar then
+				puts 'КАРТИНКА ЕСТЬ'
+				data[:avatar] = par.avatar.tempfile
+			end
+
+			puts '------------ data -------------'
+			ap data
+			puts '------------ data -------------'
 
 			item = Item.create(data)
 			if item then
