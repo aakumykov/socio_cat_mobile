@@ -103,7 +103,7 @@ app.controller('myCtrl', function($scope, $http){
 				var card = response.data;
 				
 				$scope.current_card = card;
-				//alert('showItem '+card+NL+card.title+NL+card.content);
+				//alert('showItem('+id+')'+NL+card.id+NL+card.title+NL+card.content);
 				
 				$scope.pageTitle = 'Карточка «'+card.title+'»';
 				
@@ -170,6 +170,8 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 	$scope.deleteItem = function(id){
+		//alert('deleteItem('+id+')');
+
 		var html_id = '#card'+id;
 
 		$http({
@@ -177,7 +179,7 @@ app.controller('myCtrl', function($scope, $http){
 			url: '/items/'+id
 		}).then(
 			function successCallback(response) {
-				angular.element(html_id).remove();
+				//angular.element(html_id).remove();
 				$scope.displayResult('success',"карточка "+id+" удалена");
 			},
 			function errorCallback(response) {
