@@ -6,8 +6,10 @@
 	</div>
 	
 	<div class="w3-col s9 w3-container">
-		<h3 class="w3-text-theme pointer_cursor" ng-click="showItem(current_card.title)">{{current_card.title}}</h3>
+		<h3 class="w3-text-theme pointer_cursor" title="{{current_card.title}}" ng-click="showItem({{current_card.id}})">{{current_card.title}}</h3>
+		
 		<p>{{current_card.content}}</p>
+		
 		<p>
 			<a href='{{current_card.avatar.orig}}' title='оригинальный размер'>
 				<img src="{{current_card.avatar.preview}}" alt="картинка: {{current_card.title}}" />

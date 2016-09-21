@@ -23,6 +23,7 @@ class API < Grape::API
 		get '/:id' do
 			item = Item.find_by(id: params.id)
 			{
+				id: item.id,
 				title: item.title,
 				content: item.content,
 				avatar: {

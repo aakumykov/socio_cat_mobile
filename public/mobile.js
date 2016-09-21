@@ -100,13 +100,17 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.showItem = function(id){
 		$http.get('/items/'+id).then(
 			function successCallback(response){
-				var data = response.data;
-				$scope.current_card = response.data;
-				$scope.pageTitle = 'Карточка «'+data.title+'»';
-				$scope.goTo('#show/'+data.id);
+				var card = response.data;
+				
+				$scope.current_card = card;
+				//alert('showItem '+card+NL+card.title+NL+card.content);
+				
+				$scope.pageTitle = 'Карточка «'+card.title+'»';
+				
+				$scope.goTo('#show/'+card.id);
 			},
 			function errorCallback(response){
-				alert("ошибка показа карточки "+response.data.id);
+				alert("ошибка показа карточки "+card.id);
 			}
 		);
 	};
