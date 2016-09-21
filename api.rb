@@ -36,22 +36,27 @@ class API < Grape::API
 		params do
 			requires :title, type: String
 			requires :content, type: String
-			optional :avatar, default: nil
+			optional :avatar, default: false
 		end
 		post '/new' do
-			puts '-'*20
-			puts "PARAMS: #{params}"
-			puts "params.avatar: #{params.avatar}"
-			puts '-'*20
+			require 'awesome_print'
+			puts '------------ params -------------'
+			ap params
+			puts '------------ params -------------'
+
+			puts '------------ declared(params) -------------'
+			ap declared(params)
+			puts '------------ declared(params) -------------'
 
 			par = declared(params)
-			par = {
+			
+			data = {
 				title: par.title,
 				content: par.content,
 			}
-			par[:avatar] = par.avatar.tempfile if not par.avatar.nil?
+			data[:avatar] = par.avatar.tempfile if par.avatar # != false
 
-			item = Item.create(par)
+			item = Item.create(data)
 			if item then
 				result_msg success: "создана карточка #{item.id}"
 			else
