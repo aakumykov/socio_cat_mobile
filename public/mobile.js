@@ -166,7 +166,12 @@ app.controller('myCtrl', function($scope, $http){
 			$scope.card = {
 				id: data.id,
 				title: data.title,
-				content: data.content
+				content: data.content,
+				avatar: {
+					preview: data.avatar.preview,
+					original: data.avatar.orig,
+					thumbnail: data.avatar.thumbnail,
+				},
 			};
 			$scope.pageTitle = 'Изменение карточки '+id;
 			$scope.goTo('#edit');

@@ -3,6 +3,10 @@
 	
 	<textarea ng-model='card.content' class="w3-input w3-border" placeholder="содержимое"></textarea>
 
+	<p class='w3-center'>
+		<img src="{{card.avatar.preview}}" alt="картинка: {{card.title}}" />
+	</p>
+
 	<input type="file" class="w3-input w3-border w3-margin-bottom" file-model="myFile" />
 	
 	<input 
