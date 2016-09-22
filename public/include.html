@@ -1,2 +1,3 @@
-<div ng-include="'card-form.html'" ng-init="cardForm.submitTitle='Сохранить'" ng-init="cardForm.submitFunction=updateItem"></div>
-<!--<div ng-include="'card-form.html'" ng-init="cardFormType='new'"></div>-->
+<ng-include src="createCardForm('')"></ng-include>
+<ng-include src="createCardForm('new')"></ng-include>
+<ng-include src="createCardForm('edit')"></ng-include>

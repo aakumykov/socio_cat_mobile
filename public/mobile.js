@@ -59,7 +59,38 @@ app.controller('myCtrl', function($scope, $http){
 		content: ''
 	};
 
-	$scope.cardForm = {};
+	$scope.myFile;
+
+	$scope.cardForm = {
+		button: 'Просто кнопка',
+		action: function(){
+			var msg = 'Не задано действие для формы';
+			alert(msg);
+			console.log(msg);
+		},
+	};
+
+	$scope.createCardForm = function(mode=''){
+		if ('new'==mode) {
+			$scope.cardForm.button = 'Создать';
+			$scope.cardForm.action = function(){ 
+				alert($scope.cardForm.button);
+				//$scope.createItem(); 
+			}
+		}
+		else if ('edit'==mode) {
+			$scope.cardForm.button = 'Сохранить';
+			$scope.cardForm.action = function(){ 
+				alert($scope.cardForm.button);
+				//$scope.updateItem();
+			}
+		}
+		else {
+			console.log("createCardForm(): invalid mode '"+mode+"'");
+		}
+
+		return 'card-form.html';
+	}
 
 	// служебныя функции
 	$scope.goTo = function(uri) {
