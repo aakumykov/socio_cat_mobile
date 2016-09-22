@@ -29,19 +29,20 @@ app.config(
 );
 
 app.directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-            
-            element.bind('change', function(){
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
+	return {
+		restrict: 'A',
+		link: function(scope, element, attrs) {
+			var model = $parse(attrs.fileModel);
+			var modelSetter = model.assign;
+			
+			element.bind('change', function(){
+				scope.$apply(function(){
+					modelSetter(scope, element[0].files[0]);
+				});
+				alert(scope.myFile);
+			});
+		}
+	};
 }]);
 
 app.controller('myCtrl', function($scope, $http){
@@ -58,7 +59,7 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.card = $scope.blankCard;
 
 
-	$scope.myFile;
+	//$scope.myFile;
 
 
 	$scope.cardForm = {
@@ -141,9 +142,11 @@ app.controller('myCtrl', function($scope, $http){
 
 	$scope.createItem = function(){
 		var formData = new FormData();
-        	formData.append('title', this.card.title);
-        	formData.append('content', this.card.content);
-        	if (this.myFile) formData.append('avatar', this.myFile);
+			formData.append('title', this.card.title);
+			formData.append('content', this.card.content);
+			if (this.myFile) formData.append('avatar', this.myFile);
+			alert(this.myFile);
+			alert($scope.myFile);
 
 		$http.post('/items/new', formData,{ 
 			transformRequest: angular.identity, 
