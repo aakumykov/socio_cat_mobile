@@ -6,7 +6,8 @@ app.config(
 	function($routeProvider) {
 		$routeProvider
 		.when('/', {
-			templateUrl : 'list.html'
+			//templateUrl : 'list.html'
+			templateUrl: 'include.html'
 		})
 		.when('/list', {
 			templateUrl : 'list.html'
@@ -21,8 +22,12 @@ app.config(
 		.when('/edit', {
 			templateUrl: 'edit.html'
 		})
+		.when('/include',{
+			templateUrl: 'include.html'
+		})
 		.otherwise({
-			templateUrl: 'list.html'
+			//templateUrl: 'list.html'
+			templateUrl: 'include.html'
 		})
 		;
 	}
@@ -54,7 +59,7 @@ app.controller('myCtrl', function($scope, $http){
 		content: ''
 	};
 
-	//$scope.myFile = '';
+	$scope.cardForm = {};
 
 	// служебныя функции
 	$scope.goTo = function(uri) {
@@ -255,5 +260,5 @@ app.controller('myCtrl', function($scope, $http){
 
 
 
-	$scope.showList();
+	//$scope.showList();
 });
