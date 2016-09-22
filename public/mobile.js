@@ -6,8 +6,7 @@ app.config(
 	function($routeProvider) {
 		$routeProvider
 		.when('/', {
-			//templateUrl : 'list.html'
-			templateUrl: 'include.html'
+			templateUrl : 'list.html'
 		})
 		.when('/list', {
 			templateUrl : 'list.html'
@@ -22,12 +21,8 @@ app.config(
 		.when('/edit', {
 			templateUrl: 'edit.html'
 		})
-		.when('/include',{
-			templateUrl: 'include.html'
-		})
 		.otherwise({
-			//templateUrl: 'list.html'
-			templateUrl: 'include.html'
+			templateUrl: 'list.html'
 		})
 		;
 	}
@@ -53,13 +48,18 @@ app.controller('myCtrl', function($scope, $http){
 	// переменныя
 	$scope.pageTitle = '';
 
-	$scope.card = {
+
+	$scope.blankCard = {
 		id: NaN,
 		title: '',
 		content: ''
 	};
 
+	$scope.card = $scope.blankCard;
+
+
 	$scope.myFile;
+
 
 	$scope.cardForm = {
 		button: 'Просто кнопка',
@@ -70,27 +70,6 @@ app.controller('myCtrl', function($scope, $http){
 		},
 	};
 
-	$scope.createCardForm = function(mode=''){
-		if ('new'==mode) {
-			$scope.cardForm.button = 'Создать';
-			$scope.cardForm.action = function(){ 
-				alert($scope.cardForm.button);
-				//$scope.createItem(); 
-			}
-		}
-		else if ('edit'==mode) {
-			$scope.cardForm.button = 'Сохранить';
-			$scope.cardForm.action = function(){ 
-				alert($scope.cardForm.button);
-				//$scope.updateItem();
-			}
-		}
-		else {
-			console.log("createCardForm(): invalid mode '"+mode+"'");
-		}
-
-		return 'card-form.html';
-	}
 
 	// служебныя функции
 	$scope.goTo = function(uri) {
@@ -98,26 +77,30 @@ app.controller('myCtrl', function($scope, $http){
 	}
 
 	$scope.displayResult = function(type, text=''){
-		// var color = 'black';
-		// switch(type){
-		// 	case 'info':
-		// 		color = 'yellow';
-		// 		break;
-		// 	case 'success':
-		// 		color = 'green';
-		// 		break;
-		// 	case 'error':
-		// 		color = 'red';
-		// 		break;
-		// }
+	}
 
-		// $scope.resultMsgColor = color;
-		// $scope.resultMsgText = text;
+	$scope.createCardForm = function(mode=''){
+		if ('new'==mode) {
+			$scope.cardForm.button = 'Создать';
+			$scope.cardForm.action = function(){ 
+				$scope.createItem(); 
+			}
+		}
+		else if ('edit'==mode) {
+			$scope.cardForm.button = 'Сохранить';
+			$scope.cardForm.action = function(){ 
+				$scope.updateItem();
+			}
+		}
+		else {
+			console.log("createCardForm(): invalid mode '"+mode+"'");
+		}
+
+		return 'card_form.html';
 	}
 
 	$scope.clearForm = function(){
-		$scope.card.title = '';
-		$scope.card.content = '';
+		$scope.card = $scope.blankCard;
 	}
 
 	// основныя функции
@@ -291,5 +274,5 @@ app.controller('myCtrl', function($scope, $http){
 
 
 
-	//$scope.showList();
+	$scope.showList();
 });
