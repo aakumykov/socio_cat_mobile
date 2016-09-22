@@ -39,6 +39,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
                 scope.$apply(function(){
                     modelSetter(scope, element[0].files[0]);
                 });
+                console.log('file changed: '+scope.myFile.name);
             });
         }
     };
@@ -58,7 +59,7 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.card = $scope.blankCard;
 
 
-	$scope.myFile;
+	//$scope.myFile = {};
 
 
 	$scope.cardForm = {
@@ -144,6 +145,8 @@ app.controller('myCtrl', function($scope, $http){
         	formData.append('title', this.card.title);
         	formData.append('content', this.card.content);
         	if (this.myFile) formData.append('avatar', this.myFile);
+
+        	alert(this.myFile.name);
 
 		$http.post('/items/new', formData,{ 
 			transformRequest: angular.identity, 
