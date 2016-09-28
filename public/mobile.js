@@ -32,15 +32,29 @@ app.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
+        	//for (key in scope) { alert('=link='+NL+key+'='+scope[key]); }
+
             var model = $parse(attrs.fileModel);
             var modelSetter = model.assign;
             
             element.bind('change', function(){
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
+            	//for (key in scope) { alert('=change='+NL+key+'='+scope[key]); }
+
+            	theFile = element[0].files[0];
+
+				scope.$apply(function(){
+					modelSetter(scope, element[0].files[0]);
+				});
+
                 console.log('file changed: '+scope.myFile.name);
+                console.log('scope.myFile: '+scope.myFile);
+                console.log('scope.myFile.name: '+scope.myFile.name);
+                console.log('theFile: '+theFile);
+                console.log('theFile.name: '+theFile.name);
             });
+        },
+        scope: {
+        	qwerty: '=myFile'
         }
     };
 }]);
@@ -53,13 +67,14 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.blankCard = {
 		id: NaN,
 		title: '',
-		content: ''
+		content: '',
+		file: undefined,
 	};
 
 	$scope.card = $scope.blankCard;
 
 
-	//$scope.myFile = {};
+	$scope.myFile;
 
 
 	$scope.cardForm = {
