@@ -101,6 +101,7 @@ app.controller('myCtrl', function($scope, $http){
 				'content: '+$scope.card.content+NL+
 				''
 			);
+			$scope.createItem();
 		}
 
 		$scope.goTo('#card_form');
@@ -166,7 +167,7 @@ app.controller('myCtrl', function($scope, $http){
         	formData.append('content', this.card.content);
         	if (this.myFile) formData.append('avatar', this.myFile);
 
-        	alert(this.myFile.name);
+        	//alert(this.myFile.name);
 
 		$http.post('/items/new', formData,{ 
 			transformRequest: angular.identity, 
