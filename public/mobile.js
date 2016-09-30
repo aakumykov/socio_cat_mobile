@@ -56,7 +56,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-app.controller('myCtrl', function($scope, $http){
+app.controller('myCtrl', function($scope, $http, $filter){
 	// переменныя
 	$scope.pageTitle = '';
 
@@ -116,7 +116,7 @@ app.controller('myCtrl', function($scope, $http){
 	}
 
 	$scope.clearForm = function(){
-		console.log('clearForm');
+		console.log('clearForm' + ', '+$filter('date')(new Date(), 'h:mm:ss.sss') );
 		
 		$scope.card.title = '';
 		$scope.card.content = '';
@@ -133,7 +133,7 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 	$scope.showList = function(){
-		console.log('showList');
+		console.log('showList' + ', '+$filter('date')(new Date(), 'h:mm:ss.sss') );
 		$scope.pageTitle = 'Список карточек';
 		$scope.loadList();
 		$scope.goTo('#list');
