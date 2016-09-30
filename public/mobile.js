@@ -116,6 +116,11 @@ app.controller('myCtrl', function($scope, $http){
 	}
 
 	$scope.clearForm = function(){
+		console.log('clearForm');
+		
+		$scope.card.title = '';
+		$scope.card.content = '';
+
 		$scope.card = $scope.blankCard;
 	}
 
@@ -128,6 +133,7 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 	$scope.showList = function(){
+		console.log('showList');
 		$scope.pageTitle = 'Список карточек';
 		$scope.loadList();
 		$scope.goTo('#list');
@@ -188,12 +194,14 @@ app.controller('myCtrl', function($scope, $http){
 		}).then(
 			function successCallback(response) {
 				$scope.clearForm();
+				$scope.showList();
 				$scope.displayResult('success','карточка создана');
 			},
 			function errorCallback(response) {
 				$scope.displayResult('error','ошибка создания карточки');
-			},
-			$scope.showList()
+				$scope.showList();
+			}//,
+			//$scope.showList();
 		);
 	};
 

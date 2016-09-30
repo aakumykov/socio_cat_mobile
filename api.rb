@@ -53,13 +53,11 @@ class API < Grape::API
 		end
 		post '/new' do
 			require 'awesome_print'
-			puts '------------ params -------------'
+			puts '------------ API:/new, params -------------'
 			ap params
-			puts '------------ params -------------'
 
-			puts '------------ declared(params) -------------'
+			puts '------------ API:/new, declared(params) -------------'
 			ap declared(params)
-			puts '------------ declared(params) -------------'
 
 			par = declared(params)
 			
@@ -72,9 +70,8 @@ class API < Grape::API
 				data[:avatar] = par.avatar.tempfile
 			end
 
-			puts '------------ data -------------'
+			puts '------------ API:/new, data to save -------------'
 			ap data
-			puts '------------ data -------------'
 
 			item = Item.create(data)
 			if item then
