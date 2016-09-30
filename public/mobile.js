@@ -107,7 +107,17 @@ app.controller('myCtrl', function($scope, $http){
 	}
 
 	$scope.editCardForm = function(){
-		
+		$scope.cardForm.button = 'Сохранить';
+		$scope.cardForm.action = function(){
+			alert(
+				'=изменение карточки='+NL+
+				'title: '+$scope.card.title+NL+
+				'content: '+$scope.card.content+NL+
+				''
+			);
+		}
+
+		$scope.goTo('#card_form');
 	}
 
 	$scope.clearForm = function(){
@@ -187,7 +197,7 @@ app.controller('myCtrl', function($scope, $http){
 				},
 			};
 			$scope.pageTitle = 'Изменение карточки '+id;
-			$scope.goTo('#edit');
+			$scope.editCardForm();
 		});
 	};
 
