@@ -92,38 +92,33 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.displayResult = function(type, text=''){
 	}
 
-	$scope.newCardForm = function(){
-		$scope.cardForm.button = 'Создать';
-		$scope.cardForm.action = function(){
-			alert(
-				'=создание карточки='+NL+
-				'title: '+$scope.card.title+NL+
-				'content: '+$scope.card.content+NL+
-				''
-			);
-			$scope.createItem();
+	$scope.cardForm = function(mode=''){
+		switch (mode) {
+			case 'new':
+				formOptions = {
+					button: 'Создать',
+					action: function(){ $scope.createItem(); }
+				};
+				break;
+			case 'edit':
+				formOptions = {
+					button: 'Сохранить',
+					action: function(){ $scope.updateItem(); }
+				};
+				break;
+			default:
+				alert('неизвестный режим "'+mode+'"');
+				break;
 		}
 
-		$scope.goTo('#card_form');
-	}
-
-	$scope.editCardForm = function(){
-		$scope.cardForm.button = 'Сохранить';
-		$scope.cardForm.action = function(){
-			alert(
-				'=изменение карточки='+NL+
-				'title: '+$scope.card.title+NL+
-				'content: '+$scope.card.content+NL+
-				''
-			);
-		}
-
+		angular.merge($scope.cardForm, formOptions);
 		$scope.goTo('#card_form');
 	}
 
 	$scope.clearForm = function(){
 		$scope.card = $scope.blankCard;
 	}
+
 
 	// основныя функции
 	$scope.loadList = function(){
@@ -158,8 +153,26 @@ app.controller('myCtrl', function($scope, $http){
 
 	$scope.newItem = function(){
 		$scope.pageTitle = 'Создание карточки';
-		$scope.newCardForm();
+		$scope.cardForm('new');
 	}
+
+	$scope.editItem = function(id){
+		$http.get('/items/'+id).then(function(response) {
+			var data = response.data;
+			$scope.card = {
+				id: data.id,
+				title: data.title,
+				content: data.content,
+				avatar: {
+					preview: data.avatar.preview,
+					original: data.avatar.orig,
+					thumbnail: data.avatar.thumbnail,
+				},
+			};
+			$scope.pageTitle = 'Изменение карточки '+id;
+			$scope.cardForm('edit');
+		});
+	};
 
 	$scope.createItem = function(){
 		var formData = new FormData();
@@ -182,24 +195,6 @@ app.controller('myCtrl', function($scope, $http){
 			},
 			$scope.showList()
 		);
-	};
-
-	$scope.editItem = function(id){
-		$http.get('/items/'+id).then(function(response) {
-			var data = response.data;
-			$scope.card = {
-				id: data.id,
-				title: data.title,
-				content: data.content,
-				avatar: {
-					preview: data.avatar.preview,
-					original: data.avatar.orig,
-					thumbnail: data.avatar.thumbnail,
-				},
-			};
-			$scope.pageTitle = 'Изменение карточки '+id;
-			$scope.editCardForm();
-		});
 	};
 
 	$scope.updateItem = function(){
@@ -240,6 +235,7 @@ app.controller('myCtrl', function($scope, $http){
 		$scope.goTo('#list');
 		$scope.clearForm();
 	};
+
 
 	$scope.modal = {
 		title: 'Модальное окно',
