@@ -14,12 +14,9 @@ app.config(
 		.when('/show/:id', {
 			templateUrl : 'show.html',
 		})
-		.when('/new', {
-			templateUrl: 'new.html',
+		.when('/card_form', {
+			templateUrl: 'card_form.html',
 			headers: 'Max-Age: 0',
-		})
-		.when('/edit', {
-			templateUrl: 'edit.html'
 		})
 		.otherwise({
 			templateUrl: 'list.html'
@@ -95,24 +92,22 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.displayResult = function(type, text=''){
 	}
 
-	$scope.createCardForm = function(mode=''){
-		if ('new'==mode) {
-			$scope.cardForm.button = 'Создать';
-			$scope.cardForm.action = function(){ 
-				$scope.createItem(); 
-			}
-		}
-		else if ('edit'==mode) {
-			$scope.cardForm.button = 'Сохранить';
-			$scope.cardForm.action = function(){ 
-				$scope.updateItem();
-			}
-		}
-		else {
-			console.log("createCardForm(): invalid mode '"+mode+"'");
+	$scope.newCardForm = function(){
+		$scope.cardForm.button = 'Создать';
+		$scope.cardForm.action = function(){
+			alert(
+				'=создание карточки='+NL+
+				'title: '+$scope.card.title+NL+
+				'content: '+$scope.card.content+NL+
+				''
+			);
 		}
 
-		return 'card_form.html';
+		$scope.goTo('#card_form');
+	}
+
+	$scope.editCardForm = function(){
+		
 	}
 
 	$scope.clearForm = function(){
@@ -152,7 +147,7 @@ app.controller('myCtrl', function($scope, $http){
 
 	$scope.newItem = function(){
 		$scope.pageTitle = 'Создание карточки';
-		$scope.goTo('#new');
+		$scope.newCardForm();
 	}
 
 	$scope.createItem = function(){
