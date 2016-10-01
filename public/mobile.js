@@ -83,7 +83,7 @@ app.controller('myCtrl', function($scope, $http, $filter){
 	}
 
 	$scope.clearForm = function(){
-		console.log('clearForm' + ', '+$filter('date')(new Date(), 'mm:ss.sss') );
+		console.log('clearForm()' + ', '+$filter('date')(new Date(), 'mm:ss.sss') );
 		angular.merge($scope.card,$scope.blankCard);
 	}
 
@@ -96,7 +96,7 @@ app.controller('myCtrl', function($scope, $http, $filter){
 	};
 
 	$scope.showList = function(){
-		console.log('showList' + ', '+$filter('date')(new Date(), 'mm:ss.sss') );
+		console.log('showList()' + ', '+$filter('date')(new Date(), 'mm:ss.sss') );
 		$scope.pageTitle = 'Список карточек';
 		$scope.loadList();
 		$scope.goTo('#list');
@@ -270,6 +270,12 @@ app.controller('myCtrl', function($scope, $http, $filter){
 
 
 
+	$scope.qwerty = function(){
+		alert('scope.qwerty('+this.myFile+', '+this.myFile.name+')');
+	}
+
+
+
 	$scope.showList();
 });
 
@@ -278,27 +284,14 @@ app.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-            
             element.bind('change', function(){
-            	myFile = element[0].files[0];
+            	scope.myFile = element[0].files[0];
 
-				// scope.$apply(function(){
-				// 	modelSetter(scope, element[0].files[0]);
-				// });
+                console.log('scope: '+scope);
+                console.log('scope.myFile: '+scope.myFile+'('+scope.myFile.name+')');
 
-            	//scope.myFile = element[0].files[0];
-            	//alert(scope.myFile+NL+scope.myFile.name);
-
-                console.log('file changed: '+myFile.name);
-                console.log('myFile: '+myFile);
-                // console.log('theFile: '+theFile);
-                // console.log('theFile.name: '+theFile.name);
+                scope.qwerty();
             });
-        },
-        scope: {
-        	file_binder: '=myFile'
         }
     };
 }]);
