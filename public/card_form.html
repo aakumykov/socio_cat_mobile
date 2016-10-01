@@ -1,0 +1,27 @@
+<div class="w3-container">
+	<!-- название -->
+	<input ng-model='card.title' class="w3-input w3-border" placeholder='название' />
+	
+	<!-- содержимое -->
+	<textarea ng-model='card.content' class="w3-input w3-border" placeholder="содержимое"></textarea>
+
+	<!-- предпросмотр картинки -->
+	<p class='w3-center'>
+		<img src="{{card.avatar.preview}}" />
+	</p>
+
+	<!-- выбор файла -->
+	<input 
+		type="file" 
+		class="w3-input w3-border w3-margin-bottom" 
+		file-model="myFile" 
+	/>
+	
+	<!-- отправка -->
+	<button ng-click='cardForm.action()' class='w3-btn-block w3-theme'>{{cardForm.button}}</button>
+	
+	<!-- отмена -->
+	<input type='button' ng-click='cancelEdit()' class='w3-btn-block w3-white w3-border' value='Отмена' />
+
+	<div class='w3-panel w3-{{resultMsgColor}} w3-padding w3-round w3-center'>{{resultMsgText}}</div>
+</div>

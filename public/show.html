@@ -1,13 +1,21 @@
 <div class="w3-row w3-card-2 w3-margin">
 
 	<div class='w3-right w3-xlarge w3-text-grey'>
-		<i class='pointer_cursor fa fa-remove w3-hover-text-red w3-right' ng-click="deleteItem(current_card.id)" title="удалить карточку {{current_card.id}}"></i>
+		<i class='pointer_cursor fa fa-remove w3-hover-text-red w3-right' ng-click="deleteModal(current_card.id)" title="удалить карточку {{current_card.id}}"></i>
+		
 		<i class='pointer_cursor fa fa-edit w3-hover-text-orange w3-right' ng-click="editItem(current_card.id)" title="изменить карточку {{current_card.id}}"></i>
 	</div>
 	
 	<div class="w3-col s9 w3-container">
-		<h3 class="w3-text-theme">{{current_card.title}}</h3>
+		<h3 class="w3-text-theme pointer_cursor" title="{{current_card.title}}" ng-click="showItem(current_card.id)">{{current_card.title}}</h3>
+		
 		<p>{{current_card.content}}</p>
+		
+		<p>
+			<a href='{{current_card.avatar.orig}}' title='оригинальный размер'>
+				<img src="{{current_card.avatar.preview}}" alt="картинка: {{current_card.title}}" />
+			</a>
+		</p>
 	</div>
 
 </div>

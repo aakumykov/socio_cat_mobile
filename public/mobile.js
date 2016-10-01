@@ -12,13 +12,11 @@ app.config(
 			templateUrl : 'list.html'
 		})
 		.when('/show/:id', {
-			templateUrl : 'show.html'
+			templateUrl : 'show.html',
 		})
-		.when('/new', {
-			templateUrl : 'new.html'
-		})
-		.when('/edit', {
-			templateUrl: 'edit.html'
+		.when('/card_form', {
+			templateUrl: 'card_form.html',
+			headers: 'Max-Age: 0',
 		})
 		.otherwise({
 			templateUrl: 'list.html'
@@ -27,15 +25,29 @@ app.config(
 	}
 );
 
-app.controller('myCtrl', function($scope, $http){
+app.controller('myCtrl', function($scope, $http, $filter){
 	// переменныя
 	$scope.pageTitle = '';
 
-	$scope.card = {
+
+	$scope.card = {};
+
+	$scope.blank_card = {
 		id: NaN,
-		title: '', 
-		content: '' 
+		title: '',
+		content: '',
+		file: undefined,
 	};
+
+	$scope.cardForm = {
+		button: 'Просто кнопка',
+		action: function(){
+			var msg = 'Не задано действие для формы';
+			alert(msg);
+			console.log(msg);
+		},
+	};
+
 
 	// служебныя функции
 	$scope.goTo = function(uri) {
@@ -43,27 +55,37 @@ app.controller('myCtrl', function($scope, $http){
 	}
 
 	$scope.displayResult = function(type, text=''){
-		// var color = 'black';
-		// switch(type){
-		// 	case 'info':
-		// 		color = 'yellow';
-		// 		break;
-		// 	case 'success':
-		// 		color = 'green';
-		// 		break;
-		// 	case 'error':
-		// 		color = 'red';
-		// 		break;
-		// }
+	}
 
-		// $scope.resultMsgColor = color;
-		// $scope.resultMsgText = text;
+	$scope.cardForm = function(mode=''){
+		switch (mode) {
+			case 'new':
+				formOptions = {
+					button: 'Создать',
+					action: function(){ $scope.createItem(); }
+				};
+				break;
+			case 'edit':
+				formOptions = {
+					button: 'Сохранить',
+					action: function(){ $scope.updateItem(); }
+				};
+				break;
+			default:
+				alert('неизвестный режим "'+mode+'"');
+				break;
+		}
+
+		angular.merge($scope.cardForm, formOptions);
+		$scope.goTo('#card_form');
 	}
 
 	$scope.clearForm = function(){
-		$scope.card.title = '';
-		$scope.card.content = '';
+		console.log('clearForm()' + ', '+$filter('date')(new Date(), 'mm:ss.sss') );
+		$scope.card = $scope.blank_card;
+		console.log($scope.card);
 	}
+
 
 	// основныя функции
 	$scope.loadList = function(){
@@ -73,6 +95,7 @@ app.controller('myCtrl', function($scope, $http){
 	};
 
 	$scope.showList = function(){
+		console.log('showList()' + ', '+$filter('date')(new Date(), 'mm:ss.sss') );
 		$scope.pageTitle = 'Список карточек';
 		$scope.loadList();
 		$scope.goTo('#list');
@@ -81,48 +104,25 @@ app.controller('myCtrl', function($scope, $http){
 	$scope.showItem = function(id){
 		$http.get('/items/'+id).then(
 			function successCallback(response){
-				var data = response.data;
-				$scope.current_card = {
-					id: data.id,
-					title: data.title,
-					content: data.content
-				};
-				//alert("демонстрация карточки "+data.id+NL+data.title+NL+data.content);
-				$scope.goTo('#show/'+data.id);
+				var card = response.data;
+				
+				$scope.current_card = card;
+				//alert('showItem('+id+')'+NL+card.id+NL+card.title+NL+card.content);
+				
+				$scope.pageTitle = 'Карточка «'+card.title+'»';
+				
+				$scope.goTo('#show/'+card.id);
 			},
 			function errorCallback(response){
-				alert("ошибка показа карточки "+response.data.id);
+				alert("ошибка показа карточки "+card.id);
 			}
 		);
 	};
 
 	$scope.newItem = function(){
 		$scope.pageTitle = 'Создание карточки';
-		$scope.goTo('#new');
+		$scope.cardForm('new');
 	}
-
-	$scope.createItem = function(){
-		var request = {
-			"title": $scope.card.title,
-			"content": $scope.card.content
-		}
-
-		$http({
-			method: 'POST',
-			url: '/items/new',
-			data: request
-		}).then(
-			function successCallback(response) {
-				$scope.clearForm();
-				$scope.displayResult('success','карточка создана');
-			},
-			function errorCallback(response) {
-				$scope.displayResult('error','ошибка создания карточки');
-			},
-			$scope.loadList(),
-			$scope.goTo('#list')
-		);
-	};
 
 	$scope.editItem = function(id){
 		$http.get('/items/'+id).then(function(response) {
@@ -130,28 +130,70 @@ app.controller('myCtrl', function($scope, $http){
 			$scope.card = {
 				id: data.id,
 				title: data.title,
-				content: data.content
+				content: data.content,
+				avatar: {
+					preview: data.avatar.preview,
+					original: data.avatar.orig,
+					thumbnail: data.avatar.thumbnail,
+				},
 			};
 			$scope.pageTitle = 'Изменение карточки '+id;
-			$scope.goTo('#edit');
+			$scope.cardForm('edit');
 		});
+	};
+
+	$scope.createItem = function(){
+
+		var card = this.card;
+
+		var formData = new FormData();
+        	formData.append('title', card.title);
+        	formData.append('content', card.content);
+        	if (card.file) formData.append('avatar', card.file);
+
+		$http.post('/items/new', formData, { 
+			transformRequest: angular.identity, 
+			headers: {'Content-Type': undefined}
+		}).then(
+			function successCallback(response) {
+				$scope.clearForm();
+				$scope.showList();
+				$scope.displayResult('success','карточка создана');
+			},
+			function errorCallback(response) {
+				$scope.displayResult('error','ошибка создания карточки');
+				$scope.showList();
+			}
+		);
 	};
 
 	$scope.updateItem = function(){
-		var id = $scope.card.id;
-		
-		var request = {
-			"title": $scope.card.title,
-			"content": $scope.card.content
-		};
+		var card = this.card;
 
-		$http.patch('/items/'+id, request).then(function(response){
-			$scope.clearForm();
-			$scope.showList();
-		});
+		var formData = new FormData();
+        	formData.append('title', card.title);
+        	formData.append('content', card.content);
+        	if (card.file) formData.append('avatar', card.file);
+
+		$http.patch('/items/'+card.id, formData, { 
+			transformRequest: angular.identity, 
+			headers: {'Content-Type': undefined}
+		}).then(
+			function successCallback(response) {
+				$scope.clearForm();
+				$scope.showList();
+				$scope.displayResult('success','карточка обновлена');
+			},
+			function errorCallback(response) {
+				$scope.displayResult('error','ошибка обновления карточки');
+				$scope.showList();
+			}
+		);
 	};
 
 	$scope.deleteItem = function(id){
+		//alert('deleteItem('+id+')');
+
 		var html_id = '#card'+id;
 
 		$http({
@@ -159,8 +201,9 @@ app.controller('myCtrl', function($scope, $http){
 			url: '/items/'+id
 		}).then(
 			function successCallback(response) {
-				angular.element(html_id).remove();
+				//angular.element(html_id).remove();
 				$scope.displayResult('success',"карточка "+id+" удалена");
+				$scope.showList();
 			},
 			function errorCallback(response) {
 				$scope.displayResult('success',"ошибка удаления карточки "+id);
@@ -172,6 +215,7 @@ app.controller('myCtrl', function($scope, $http){
 		$scope.goTo('#list');
 		$scope.clearForm();
 	};
+
 
 	$scope.modal = {
 		title: 'Модальное окно',
@@ -199,8 +243,6 @@ app.controller('myCtrl', function($scope, $http){
 		hide: function(){ document.getElementById('modalWindow').style.display = 'none'; },
 	};
 
-	
-
 	$scope.createModal = function(opt){
 		//alert('createModal(opt.yes.arg:'+opt.yes.arg+')');
 		
@@ -219,10 +261,6 @@ app.controller('myCtrl', function($scope, $http){
 		modal.show();
 	};
 
-	// $scope.deleteItemTest = function(id){
-	// 	alert('deleteItemTest('+id+')');
-	// }
-
 	$scope.deleteModal = function(id){
 		//alert('deleteModal('+id+')');
 
@@ -239,7 +277,20 @@ app.controller('myCtrl', function($scope, $http){
 		});
 	};
 
-
-
 	$scope.showList();
 });
+
+
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('change', function(){
+            	var file = element[0].files[0];
+            	scope.card.file = file;
+
+                console.log('выбран файл "'+file.name+'"');
+            });
+        }
+    };
+}]);

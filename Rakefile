@@ -1,6 +1,3 @@
-require 'active_record'
-require 'yaml'
-require 'fileutils'
 require_relative 'config/application.rb'
 require_relative 'model.rb'
 

@@ -1,4 +1,5 @@
 require_relative 'model'
+require 'awesome_print'
 
 class API < Grape::API
 	format :json
@@ -16,26 +17,63 @@ class API < Grape::API
 
 		# список
 		get '/' do
-			Item.all
+			Item.all.map do |i|
+				{
+					id:i.id, 
+					title:i.title, 
+					content: i.content, 
+					avatar:{
+						thumbnail: i.avatar(:thumbnail),
+						preview: i.avatar(:preview), 
+						orig: i.avatar(:original),
+					}
+				}
+			end
 		end
 
 		# просмотр
 		get '/:id' do
-			Item.find_by(id: params.id)
+			item = Item.find_by(id: params.id)
+			{
+				id: item.id,
+				title: item.title,
+				content: item.content,
+				avatar: {
+					thumbnail: item.avatar(:thumbnail),
+					preview: item.avatar(:preview),
+					orig: item.avatar(:original),
+				}
+			}
 		end
 
 		# создание
 		params do
 			requires :title, type: String
 			requires :content, type: String
+			optional :avatar, default: false
 		end
 		post '/new' do
+			puts '------------ API:/new, params -------------'
+			ap params
+
+			puts '------------ API:/new, declared(params) -------------'
+			ap declared(params)
+
 			par = declared(params)
-			par = {
+			
+			data = {
 				title: par.title,
 				content: par.content,
 			}
-			item = Item.create(par)
+			if par.avatar then
+				puts 'КАРТИНКА ЕСТЬ'
+				data[:avatar] = par.avatar.tempfile
+			end
+
+			puts '------------ API:/new, data to save -------------'
+			ap data
+
+			item = Item.create(data)
 			if item then
 				result_msg success: "создана карточка #{item.id}"
 			else
@@ -53,14 +91,34 @@ class API < Grape::API
 		params do
 			requires :title, type: String
 			requires :content, type: String
+			optional :avatar, default: false
 		end
 		patch '/:id' do
+			puts '------------ API:/patch, params -------------'
+			ap params
+
+			puts '------------ API:/patch, declared(params) -------------'
+			ap declared(params)
+
 			par = declared(params)
-			par = {
+			
+			item = Item.find_by(id: params.id)
+
+			data = {
 				title: par.title,
 				content: par.content,
 			}
-			item = Item.find_by(id: params.id).update(par)
+			if par.avatar then
+				puts 'КАРТИНКА ЕСТЬ'
+				item.avatar = nil
+				data[:avatar] = par.avatar.tempfile
+			end
+
+			puts '------------ API:/patch, data to update -------------'
+			ap data
+
+			item.update(data)
+
 			if item then
 				result_msg success: "изменена карточка #{params.id}"
 			else

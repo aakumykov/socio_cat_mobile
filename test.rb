@@ -1,7 +1,8 @@
-require 'active_record'
 require 'faker'
+
+require_relative 'config/application.rb'
+
 ActiveRecord::Base.establish_connection(adapter:'sqlite3', database: 'db/data.sqlite3')
-class Item < ActiveRecord::Base
-	validates :title, presence: true
-	validates :content, presence: true
-end
+
+require_relative 'model.rb'
+
