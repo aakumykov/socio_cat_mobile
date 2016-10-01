@@ -30,7 +30,9 @@ app.controller('myCtrl', function($scope, $http, $filter){
 	$scope.pageTitle = '';
 
 
-	$scope.card = $scope.blankCard = {
+	$scope.card = {};
+
+	$scope.blank_card = {
 		id: NaN,
 		title: '',
 		content: '',
@@ -80,7 +82,7 @@ app.controller('myCtrl', function($scope, $http, $filter){
 
 	$scope.clearForm = function(){
 		console.log('clearForm()' + ', '+$filter('date')(new Date(), 'mm:ss.sss') );
-		angular.merge($scope.card,$scope.blankCard);
+		$scope.card = $scope.blank_card;
 	}
 
 
