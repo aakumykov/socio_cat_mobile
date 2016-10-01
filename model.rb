@@ -9,9 +9,9 @@ class Item < ActiveRecord::Base
 		styles: { preview: "300x300>", thumbnail: "80x80>" }, 
 		default_style: :medium,
 		use_timestamp: false,
-		default_url: '/missing_image.png',
 		path: 'public/:url',
     	url: '/images/:style/:hash.:extension',
+		default_url: '/missing_images/:style/missing.png',
     	hash_secret: 'really-long-random-generated-string-not-publicly-accessible',
 	)
 	validates_attachment(:avatar,
