@@ -37,10 +37,6 @@ app.controller('myCtrl', function($scope, $http, $filter){
 		file: undefined,
 	};
 
-
-	$scope.myFile;
-
-
 	$scope.cardForm = {
 		button: 'Просто кнопка',
 		action: function(){
@@ -268,14 +264,6 @@ app.controller('myCtrl', function($scope, $http, $filter){
 		});
 	};
 
-
-
-	$scope.qwerty = function(){
-		alert('scope.qwerty('+this.myFile+', '+this.myFile.name+')');
-	}
-
-
-
 	$scope.showList();
 });
 
@@ -285,12 +273,10 @@ app.directive('fileModel', ['$parse', function ($parse) {
         restrict: 'A',
         link: function(scope, element, attrs) {
             element.bind('change', function(){
-            	scope.myFile = element[0].files[0];
+            	var file = element[0].files[0];
+            	scope.card.file = file;
 
-                console.log('scope: '+scope);
-                console.log('scope.myFile: '+scope.myFile+'('+scope.myFile.name+')');
-
-                scope.qwerty();
+                console.log('выбран файл "'+file.name+'"');
             });
         }
     };
