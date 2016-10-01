@@ -140,12 +140,13 @@ app.controller('myCtrl', function($scope, $http, $filter){
 	};
 
 	$scope.createItem = function(){
-        alert($scope.myFile.name);
-		
+
+		var card = this.card;
+
 		var formData = new FormData();
-        	formData.append('title', this.card.title);
-        	formData.append('content', this.card.content);
-        	if (this.myFile) formData.append('avatar', this.myFile);
+        	formData.append('title', card.title);
+        	formData.append('content', card.content);
+        	if (card.file) formData.append('avatar', card.file);
 
 		$http.post('/items/new', formData,{ 
 			transformRequest: angular.identity, 
@@ -159,8 +160,7 @@ app.controller('myCtrl', function($scope, $http, $filter){
 			function errorCallback(response) {
 				$scope.displayResult('error','ошибка создания карточки');
 				$scope.showList();
-			}//,
-			//$scope.showList();
+			}
 		);
 	};
 
