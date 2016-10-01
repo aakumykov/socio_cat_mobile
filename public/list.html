@@ -14,7 +14,12 @@
 		</p>
 		
 		<p class='w3-right'>
-			<img src="{{x.avatar.thumbnail}}" />
+			<img 
+				src="{{x.avatar.thumbnail}}" 
+				ng-click='showItem(x.id)' 
+				class='pointer_cursor' 
+				title='смотреть карточку {{x.id}}' 
+			/>
 		</p>
 	</div>
 	
