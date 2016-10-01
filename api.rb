@@ -1,4 +1,5 @@
 require_relative 'model'
+require 'awesome_print'
 
 class API < Grape::API
 	format :json
@@ -52,7 +53,6 @@ class API < Grape::API
 			optional :avatar, default: false
 		end
 		post '/new' do
-			require 'awesome_print'
 			puts '------------ API:/new, params -------------'
 			ap params
 
@@ -91,14 +91,34 @@ class API < Grape::API
 		params do
 			requires :title, type: String
 			requires :content, type: String
+			optional :avatar, default: false
 		end
 		patch '/:id' do
+			puts '------------ API:/patch, params -------------'
+			ap params
+
+			puts '------------ API:/patch, declared(params) -------------'
+			ap declared(params)
+
 			par = declared(params)
-			par = {
+			
+			item = Item.find_by(id: params.id)
+
+			data = {
 				title: par.title,
 				content: par.content,
 			}
-			item = Item.find_by(id: params.id).update(par)
+			if par.avatar then
+				puts 'КАРТИНКА ЕСТЬ'
+				item.avatar = nil
+				data[:avatar] = par.avatar.tempfile
+			end
+
+			puts '------------ API:/patch, data to update -------------'
+			ap data
+
+			item.update(data)
+
 			if item then
 				result_msg success: "изменена карточка #{params.id}"
 			else

@@ -151,7 +151,7 @@ app.controller('myCtrl', function($scope, $http, $filter){
         	formData.append('content', card.content);
         	if (card.file) formData.append('avatar', card.file);
 
-		$http.post('/items/new', formData,{ 
+		$http.post('/items/new', formData, { 
 			transformRequest: angular.identity, 
 			headers: {'Content-Type': undefined}
 		}).then(
@@ -168,17 +168,27 @@ app.controller('myCtrl', function($scope, $http, $filter){
 	};
 
 	$scope.updateItem = function(){
-		var id = $scope.card.id;
-		
-		var request = {
-			"title": $scope.card.title,
-			"content": $scope.card.content
-		};
+		var card = this.card;
 
-		$http.patch('/items/'+id, request).then(function(response){
-			$scope.clearForm();
-			$scope.showList();
-		});
+		var formData = new FormData();
+        	formData.append('title', card.title);
+        	formData.append('content', card.content);
+        	if (card.file) formData.append('avatar', card.file);
+
+		$http.patch('/items/'+card.id, formData, { 
+			transformRequest: angular.identity, 
+			headers: {'Content-Type': undefined}
+		}).then(
+			function successCallback(response) {
+				$scope.clearForm();
+				$scope.showList();
+				$scope.displayResult('success','карточка обновлена');
+			},
+			function errorCallback(response) {
+				$scope.displayResult('error','ошибка обновления карточки');
+				$scope.showList();
+			}
+		);
 	};
 
 	$scope.deleteItem = function(id){
