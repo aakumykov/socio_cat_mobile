@@ -280,6 +280,13 @@ app.controller('myCtrl', function($scope, $http, $filter){
 		});
 	};
 
+	$scope.showSideNav = function(){
+		document.getElementById('sideNav').style.display = 'block';
+	};
+	$scope.hideSideNav = function(){
+		document.getElementById('sideNav').style.display = 'none';
+	};
+
 	$scope.showList();
 });
 
