@@ -14,16 +14,6 @@
 		<link rel="stylesheet" href="lib/w3-theme-blue.css"/>
 		<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css"/>
 		<link rel="stylesheet" href="mobile.css"/>
-
-		<script>
-		function w3_open() {
-			document.getElementById("mySidenav").style.display = "block";
-		}
-
-		function w3_close() {
-			document.getElementById("mySidenav").style.display = "none";
-		}
-		</script>
 	</head>
 	<body ng-app='myApp' ng-controller='myCtrl'>
 		
@@ -44,21 +34,31 @@
 			</div>
 		</div>
 
-		<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">		
-			<h3>
-				<i ng-click='showList()' class='pointer_cursor w3-hover-yellow fa fa-list w3-xlarge' title='список карточек'></i>
-				{{pageTitle}}:
-			</h3>
-		</header>
+		<nav id='sideNav' class="w3-sidenav w3-card-2 w3-white">
+			<div>
+				<a href="javascript:void(0)" ng-click="hideSideNav()" class="w3-closenav w3-large w3-theme">Закрыть <b>&times;</b></a>
+				<a href="javascript:void(0)" ng-click='newItem(); hideSideNav()'>Добавить</a>
+				<a href="javascript:void(0)">Пункт-2</a>
+				<a href="javascript:void(0)">Пункт-3</a>
+			</div>
+		</nav>
 
-		<ng-view></ng-view>
-		
-		<footer class="w3-container w3-theme">
-		  <h6 class='w3-left'>
-		  	<span class='w3-left'>Счастье и радость</span>
-		  	<i class='fa fa-plus w3-xlarge 3-hover-yellow w3-margin-left pointer_cursor' ng-click='newItem()' title='добавить карточку'></i>
-		  </h6>
-		</footer>
+		<div id='main'>
+			<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">		
+				<h4>
+					<i ng-click="showSideNav()" id='openNav' class='w3-opennav fa fa-bars w3-hover-white w3-xlarge w3-left'></i>
+					<span ng-click='showList()' class='pointer_cursor w3-center w3-padding-left'>{{pageTitle}}:</span>
+				</h4>
+			</header>
 
+			<ng-view></ng-view>
+			
+			<footer class="w3-container w3-theme">
+			  <h6 class='w3-left'>
+			  	<span class='w3-left'>Счастье и радость</span>
+			  	<i class='fa fa-plus w3-xlarge 3-hover-yellow w3-margin-left pointer_cursor' ng-click='newItem()' title='добавить карточку'></i>
+			  </h6>
+			</footer>
+		</div>
 	</body>
 </html>

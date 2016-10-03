@@ -5,3 +5,11 @@ A {
 .pointer_cursor {
 	cursor: pointer;
 }
+
+#sideNav {
+	display: none;
+}
+
+#sideNav UL {
+	list-style-type: none;
+}
