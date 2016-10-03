@@ -44,34 +44,20 @@
 			</div>
 		</div>
 
-<!-- 		<nav id='sideNav' class="w3-sidenav w3-card-2 w3-white" style="width:40%">
+		<nav id='sideNav' class="w3-sidenav w3-card-2 w3-white" style="width:40%">
 			<div>
 				<a href="javascript:void(0)" ng-click="hideSideNav()" class="w3-closenav w3-large w3-red w3-padding">Закрыть <b>&times;</b></a>
 				<a>Пункт-1</a>
 				<a>Пункт-2</a>
 				<a>Пункт-3</a>
 			</div>
-		</nav> -->
-
-		<nav class="w3-sidenav w3-white w3-card-2" style="display:none" id="mySidenav">
-			<a href="javascript:void(0)" onclick="w3_close()" class="w3-closenav w3-large">Close &times;</a>
-			<a href="#">Link 1</a>
-			<a href="#">Link 2</a>
-			<a href="#">Link 3</a>
-			<a href="#">Link 4</a>
-			<a href="#">Link 5</a>
 		</nav>
 
-		<!-- <header class="w3-container w3-card-4 w3-theme w3-margin-bottom">		
+		<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">		
 			<h3>
 				<i ng-click="showSideNav()" id='openNav' class='w3-opennav fa fa-bars w3-hover-white w3-xlarge'></i>
 				<span ng-click='showList()' class='pointer_cursor'>{{pageTitle}}:</span>
 			</h3>
-		</header> -->
-
-		<header class="w3-container w3-teal">
-			<span class="w3-opennav w3-xlarge" onclick="w3_open()" id="openNav">&#9776;</span>
-			<h1>My Header</h1>
 		</header>
 
 		<ng-view></ng-view>
@@ -83,18 +69,5 @@
 		  </h6>
 		</footer>
 
-	    <script>
-		    function w3_open() {
-		      document.getElementById("main").style.marginLeft = "25%";
-		      document.getElementById("mySidenav").style.width = "25%";
-		      document.getElementById("mySidenav").style.display = "block";
-		      document.getElementById("openNav").style.display = 'none';
-		    }
-		    function w3_close() {
-		      document.getElementById("main").style.marginLeft = "0%";
-		      document.getElementById("mySidenav").style.display = "none";
-		      document.getElementById("openNav").style.display = "inline-block";
-		    }
-	    </script>
 	</body>
 </html>
