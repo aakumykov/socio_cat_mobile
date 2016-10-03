@@ -14,18 +14,8 @@
 		<link rel="stylesheet" href="lib/w3-theme-blue.css"/>
 		<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css"/>
 		<link rel="stylesheet" href="mobile.css"/>
-
-		<script>
-		function w3_open() {
-			document.getElementById("mySidenav").style.display = "block";
-		}
-
-		function w3_close() {
-			document.getElementById("mySidenav").style.display = "none";
-		}
-		</script>
 	</head>
-	<body ng-app='myApp' ng-controller='myCtrl' id='main'>
+	<body ng-app='myApp' ng-controller='myCtrl'>
 		
 		<div id="modalWindow" class="w3-modal">
 			<div class="w3-modal-content w3-card-8 w3-animate-right">
@@ -44,30 +34,31 @@
 			</div>
 		</div>
 
-		<nav id='sideNav' class="w3-sidenav w3-card-2 w3-white" style="width:40%">
+		<nav id='sideNav' class="w3-sidenav w3-card-2 w3-white">
 			<div>
-				<a href="javascript:void(0)" ng-click="hideSideNav()" class="w3-closenav w3-large w3-red w3-padding">Закрыть <b>&times;</b></a>
+				<a href="javascript:void(0)" ng-click="hideSideNav()" class="w3-closenav w3-large w3-red">Закрыть <b>&times;</b></a>
 				<a>Пункт-1</a>
 				<a>Пункт-2</a>
 				<a>Пункт-3</a>
 			</div>
 		</nav>
 
-		<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">		
-			<h3>
-				<i ng-click="showSideNav()" id='openNav' class='w3-opennav fa fa-bars w3-hover-white w3-xlarge'></i>
-				<span ng-click='showList()' class='pointer_cursor'>{{pageTitle}}:</span>
-			</h3>
-		</header>
+		<div id='main'>
+			<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">		
+				<h4>
+					<i ng-click="showSideNav()" id='openNav' class='w3-opennav fa fa-bars w3-hover-white w3-xlarge'></i>
+					<span ng-click='showList()' class='pointer_cursor'>{{pageTitle}}:</span>
+				</h4>
+			</header>
 
-		<ng-view></ng-view>
-		
-		<footer class="w3-container w3-theme">
-		  <h6 class='w3-left'>
-		  	<span class='w3-left'>Счастье и радость</span>
-		  	<i class='fa fa-plus w3-xlarge 3-hover-yellow w3-margin-left pointer_cursor' ng-click='newItem()' title='добавить карточку'></i>
-		  </h6>
-		</footer>
-
+			<ng-view></ng-view>
+			
+			<footer class="w3-container w3-theme">
+			  <h6 class='w3-left'>
+			  	<span class='w3-left'>Счастье и радость</span>
+			  	<i class='fa fa-plus w3-xlarge 3-hover-yellow w3-margin-left pointer_cursor' ng-click='newItem()' title='добавить карточку'></i>
+			  </h6>
+			</footer>
+		</div>
 	</body>
 </html>

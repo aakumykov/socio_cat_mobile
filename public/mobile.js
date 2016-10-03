@@ -28,7 +28,7 @@ app.config(
 app.controller('myCtrl', function($scope, $http, $filter){
 	// переменныя
 	$scope.pageTitle = '';
-
+	$scope.sideNavWidth = '40%';
 
 	$scope.card = {};
 
@@ -281,14 +281,14 @@ app.controller('myCtrl', function($scope, $http, $filter){
 	};
 
 	$scope.showSideNav = function(){
-		document.getElementById("main").style.marginLeft = "30%";
-		document.getElementById("sideNav").style.width = "30%";
+		document.getElementById("main").style.marginLeft = $scope.sideNavWidth;
+		document.getElementById("sideNav").style.width = $scope.sideNavWidth;
 		document.getElementById("sideNav").style.display = "block";
 		document.getElementById("openNav").style.display = 'none';
 	};
 	$scope.hideSideNav = function(){
 		document.getElementById("main").style.marginLeft = "0%";
-		document.getElementById("sideNav").style.width = "30%";
+		document.getElementById("sideNav").style.width = $scope.sideNavWidth;
 		document.getElementById("sideNav").style.display = "none";
 		document.getElementById("openNav").style.display = 'block';
 	};
