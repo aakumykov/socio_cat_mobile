@@ -281,10 +281,16 @@ app.controller('myCtrl', function($scope, $http, $filter){
 	};
 
 	$scope.showSideNav = function(){
-		document.getElementById('sideNav').style.display = 'block';
+		document.getElementById("main").style.marginLeft = "30%";
+		document.getElementById("sideNav").style.width = "30%";
+		document.getElementById("sideNav").style.display = "block";
+		document.getElementById("openNav").style.display = 'none';
 	};
 	$scope.hideSideNav = function(){
-		document.getElementById('sideNav').style.display = 'none';
+		document.getElementById("main").style.marginLeft = "0%";
+		document.getElementById("sideNav").style.width = "30%";
+		document.getElementById("sideNav").style.display = "none";
+		document.getElementById("openNav").style.display = 'block';
 	};
 
 	$scope.showList();

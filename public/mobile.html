@@ -25,7 +25,7 @@
 		}
 		</script>
 	</head>
-	<body ng-app='myApp' ng-controller='myCtrl'>
+	<body ng-app='myApp' ng-controller='myCtrl' id='main'>
 		
 		<div id="modalWindow" class="w3-modal">
 			<div class="w3-modal-content w3-card-8 w3-animate-right">
@@ -44,7 +44,7 @@
 			</div>
 		</div>
 
-		<nav id='sideNav' class="w3-sidenav w3-card-2 w3-white w3-animate-left" style="width:40%">
+		<nav id='sideNav' class="w3-sidenav w3-card-2 w3-white" style="width:40%">
 			<div>
 				<a href="javascript:void(0)" ng-click="hideSideNav()" class="w3-closenav w3-large w3-red w3-padding">Закрыть <b>&times;</b></a>
 				<a>Пункт-1</a>
@@ -55,7 +55,7 @@
 
 		<header class="w3-container w3-card-4 w3-theme w3-margin-bottom">		
 			<h3>
-				<i ng-click="showSideNav()" class='w3-opennav fa fa-bars w3-hover-white w3-xlarge'></i>
+				<i ng-click="showSideNav()" id='openNav' class='w3-opennav fa fa-bars w3-hover-white w3-xlarge'></i>
 				<span ng-click='showList()' class='pointer_cursor'>{{pageTitle}}:</span>
 			</h3>
 		</header>
