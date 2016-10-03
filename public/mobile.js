@@ -55,6 +55,7 @@ app.controller('myCtrl', function($scope, $http, $filter){
 	}
 
 	$scope.displayResult = function(type, text=''){
+		console.log(type+': '+text+' ('+$filter('date')(new Date(), 'mm:ss.sss')+')');
 	}
 
 	$scope.cardForm = function(mode=''){
@@ -81,9 +82,11 @@ app.controller('myCtrl', function($scope, $http, $filter){
 	}
 
 	$scope.clearForm = function(){
-		console.log('clearForm()' + ', '+$filter('date')(new Date(), 'mm:ss.sss') );
+		  console.log('clearForm()' + ', '+$filter('date')(new Date(), 'mm:ss.sss') );
+		
 		$scope.card = $scope.blank_card;
-		console.log($scope.card);
+		
+		  console.log($scope.card);
 	}
 
 
